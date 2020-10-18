@@ -1,0 +1,31 @@
+<div class="sidebar">
+
+    <!-- Sidebar header -->
+    <div class="sidebar-header">
+      <a [routerLink]="['/home']" class="logo">
+        <img src="assets/img/logo-white.svg" alt="Logo" id="main-logo">
+        Ventas
+      </a>
+      <a href="#" class="nav-link nav-icon rounded-circle ml-auto" data-toggle="sidebar">
+        <i class="material-icons">close</i>
+      </a>
+    </div>
+    <!-- /Sidebar header -->
+
+    <!-- Sidebar body -->
+    <div class="sidebar-body">
+      <ul class="nav nav-sub">
+        <li class="nav-label">Principal</li>
+       
+        <li class="nav-item"> 
+          <a class="nav-link has-icon dropdown-toggle" [ngClass]="{'active show': articulos.isActive}"  href="#"><i class="material-icons">home</i>Principales</a> <!-- active show -->
+          <ul>
+            <li><a  [routerLink]="['/articulos']" routerLinkActive="active" #articulos="routerLinkActive" >Árticulos</a></li>
+          </ul>
+        </li>
+       
+      </ul>
+    </div>
+    <!-- /Sidebar body -->
+
+  </div>
