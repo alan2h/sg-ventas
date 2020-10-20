@@ -16,10 +16,10 @@
               <thead class="thead-primary">
                 <tr class="column-filter">
                   <th colspan="2"></th>
-                  <th><input type="text" class="form-control form-control-sm border-primary" placeholder="Search First name"></th>
-                  <th><input type="text" class="form-control form-control-sm border-primary" placeholder="Search Last name"></th>
-                  <th><input type="text" class="form-control form-control-sm border-primary" placeholder="Search Position"></th>
-                  <th><input type="text" class="form-control form-control-sm border-primary" placeholder="Search Office"></th>
+                  <th><input type="text" class="form-control form-control-sm border-primary" placeholder="Buscar por nombre"></th>
+                  <th><input type="text" class="form-control form-control-sm border-primary" placeholder="Buscar por descripcion"></th>
+                  <th><input type="text" class="form-control form-control-sm border-primary" placeholder="Buscar por precio compra"></th>
+                  <th><input type="text" class="form-control form-control-sm border-primary" placeholder="Buscar por precio venta"></th>
                   <th><button class="btn btn-sm btn-outline-primary btn-block has-icon"><i class="material-icons">search</i></button></th>
                 </tr>
                 <tr>
@@ -31,10 +31,10 @@
                   </th>
                   <th scope="col" class="text-center">Detalle</th>
                   <th scope="col"><a href="javascript:void(0)" class="sorting asc">Nombre</a></th>
-                  <th scope="col"><a href="javascript:void(0)" class="sorting">Last name</a></th>
-                  <th scope="col"><a href="javascript:void(0)" class="sorting">Position</a></th>
-                  <th scope="col"><a href="javascript:void(0)" class="sorting">Office</a></th>
-                  <th scope="col" class="text-center">Actions</th>
+                  <th scope="col"><a href="javascript:void(0)" class="sorting">Descripción</a></th>
+                  <th scope="col"><a href="javascript:void(0)" class="sorting">Compra</a></th>
+                  <th scope="col"><a href="javascript:void(0)" class="sorting">Venta</a></th>
+                  <th scope="col" class="text-center">Acciones</th>
                 </tr>
               </thead>
 
@@ -49,9 +49,9 @@
                   </td>
                   <td class="text-center"><a href="#detailRow1" class="detail-toggle text-secondary" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="detailRow1"></a></td>
                   <td>{{ item.nombre }}</td>
-                  <td>Satou</td>
-                  <td>Accountant</td>
-                  <td>Tokyo</td>
+                  <td>{{ item.descripcion }}</td>
+                  <td>{{ item.precio_compra }}</td>
+                  <td>{{ item.precio_venta }}</td>
                   <td class="text-center">
                     <div class="btn-group btn-group-xs" role="group">
                       <a href="javascript:void(0)" class="btn btn-link btn-icon bigger-130 text-success"><i data-feather="edit"></i></a>
