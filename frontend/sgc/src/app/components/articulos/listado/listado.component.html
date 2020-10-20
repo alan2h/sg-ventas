@@ -29,7 +29,7 @@
                       <label class="custom-control-label" for="checkAll"></label>
                     </div>
                   </th>
-                  <th scope="col" class="text-center">Detalle</th>
+                  <th scope="col" class="text-center">Código</th>
                   <th scope="col"><a href="javascript:void(0)" class="sorting asc">Nombre</a></th>
                   <th scope="col"><a href="javascript:void(0)" class="sorting">Descripción</a></th>
                   <th scope="col"><a href="javascript:void(0)" class="sorting">Compra</a></th>
@@ -47,11 +47,11 @@
                       <label for="checkbox1" class="custom-control-label"></label>
                     </div>
                   </td>
-                  <td class="text-center"><a href="#detailRow1" class="detail-toggle text-secondary" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="detailRow1"></a></td>
+                  <td>{{ item.codigo }}</td>
                   <td>{{ item.nombre }}</td>
                   <td>{{ item.descripcion }}</td>
-                  <td>{{ item.precio_compra }}</td>
-                  <td>{{ item.precio_venta }}</td>
+                  <td>{{ item.precio_compra | currency }}</td>
+                  <td>{{ item.precio_venta  | currency }}</td>
                   <td class="text-center">
                     <div class="btn-group btn-group-xs" role="group">
                       <a href="javascript:void(0)" class="btn btn-link btn-icon bigger-130 text-success"><i data-feather="edit"></i></a>
@@ -59,19 +59,7 @@
                     </div>
                   </td>
                 </tr>
-                <tr class="detail-row collapse" id="detailRow1">
-                  <td colspan="7">
-                    <ul class="data-detail ml-5">
-                      <li><span>Age</span><span>33</span></li>
-                      <li><span>Start date</span><span>2008/11/28</span></li>
-                      <li><span>Salary</span><span>$162,700</span></li>
-                      <li><span>Extn.</span><span>5407</span></li>
-                      <li><span>E-mail</span><span>a.satou@datatables.net</span></li>
-                    </ul>
-                  </td>
-                </tr>
-
-
+               
               </tbody>
             </table><!-- /.table -->
 
@@ -94,14 +82,14 @@
 
             <!-- Show entries -->
             <form class="form-inline mt-1 mt-sm-0">
-              Show
+              Mostrar
               <select class="custom-select custom-select-sm w-auto mx-1">
                 <option value="5">5</option>
                 <option value="10">10</option>
                 <option value="20">20</option>
                 <option value="50">50</option>
               </select>
-              entries
+              Entradas
             </form>
 
             <!-- Pagination -->
