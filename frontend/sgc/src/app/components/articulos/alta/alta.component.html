@@ -1,19 +1,21 @@
-<div class="card">
-  <div class="card-body">
-    <!-- Toolbar -->
-    <div class="btn-group btn-group-sm mb-3" role="group">
-        <button type="button" class="btn btn-light has-icon"><i class="material-icons mr-1">save</i> Guardar</button>
-        <button type="button" class="btn btn-light has-icon"><i class="material-icons mr-1">refresh</i> Refresh</button>
-    </div>
-    <!-- Toolbar -->
-    <form method="post" class="was-validated">
-      <div class="mb-3">
-        <label for="validationTextarea">Nombre</label>
-        <input class="form-control" placeholder="El nombre es requerido" required>
-        <!-- <div class="invalid-feedback">
-          Please enter a message in the textarea.
-        </div> -->
+<div class="w-50 p-3">
+  <div class="card">
+    <div class="card-body">
+      <!-- Toolbar -->
+      <div class="btn-group btn-group-sm mb-3" role="group">
+          <button type="button" class="btn btn-light has-icon"><i class="material-icons mr-1">save</i> Guardar</button>
+          <button type="button" class="btn btn-light has-icon"><i class="material-icons mr-1">refresh</i> Refresh</button>
       </div>
-    </form>
+      <!-- Toolbar -->
+      <form method="post" class="was-validated" >
+        <div class="mb-3">
+          <label for="validationTextarea">Nombre</label>
+          <input class="form-control" [formControl]="nombre" placeholder="El nombre es requerido" >
+          <div *ngIf="nombre.invalid" class="invalid-feedback">
+            Please enter a message in the textarea.
+          </div>
+        </div>
+      </form>
+    </div>
   </div>
 </div>
