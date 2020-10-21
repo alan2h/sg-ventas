@@ -30,6 +30,15 @@
           </div>
         <!-- controls -->
 
+         <!-- controls -->
+         <div class="mb-3">
+          <label for="validationTextarea">Rubros</label>
+          <select class="form-control" >
+            <option *ngFor="let item of rubros" value="{{ item.id }}"  >{{ item.descripcion }}</option>
+          </select>
+        </div>
+      <!-- controls -->
+
       </form>
     </div>
   </div>

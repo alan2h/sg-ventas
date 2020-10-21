@@ -1,6 +1,7 @@
 from django.contrib import admin
 
-from .models import Articulo
+from .models import Articulo, Marca, Rubro
+
 
 class ArticuloAdmin(admin.ModelAdmin):
 
@@ -12,3 +13,6 @@ class ArticuloAdmin(admin.ModelAdmin):
     ]
 
 admin.site.register(Articulo, ArticuloAdmin)
+admin.site.register(Marca)
+admin.site.register(Rubro)
+

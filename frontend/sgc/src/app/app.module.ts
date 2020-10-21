@@ -12,6 +12,8 @@ import { HomeComponent } from './components/home/home.component';
 import { MainComponent } from './components/shared/main/main.component';
 import { SidebarComponent } from './components/shared/sidebar/sidebar.component';
 import { AltaComponent } from './components/articulos/alta/alta.component';
+import { MarcasComponent } from './components/complementos/marcas/marcas.component';
+import { RubrosComponent } from './components/complementos/rubros/rubros.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +24,9 @@ import { AltaComponent } from './components/articulos/alta/alta.component';
     HomeComponent,
     MainComponent,
     SidebarComponent,
-    AltaComponent
+    AltaComponent,
+    MarcasComponent,
+    RubrosComponent
   ],
   imports: [
     BrowserModule,

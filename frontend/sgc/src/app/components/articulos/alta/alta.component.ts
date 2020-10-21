@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
+//complementos
+import { RubrosService } from '../../../services/complementos/rubros/rubros.service';
+
 @Component({
   selector: 'app-alta',
   templateUrl: './alta.component.html',
@@ -24,15 +27,21 @@ export class AltaComponent implements OnInit {
     activo = models.BooleanField(default=True)
   */
 
+  rubros:any;
+
   articuloForm = new FormGroup({
     codigo: new FormControl('', [Validators.required]),
     nombre: new FormControl('', [Validators.required]),
     descripcion : new FormControl('')
   })
 
-  constructor() { }
+  constructor(private rubro_service: RubrosService) { }
 
   ngOnInit(): void {
+    this.rubro_service.getRubros()
+      .subscribe(data => {
+        this.rubros = data;
+      })
   }
 
   onSubmit(){
