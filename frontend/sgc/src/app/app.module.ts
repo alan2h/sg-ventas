@@ -14,6 +14,7 @@ import { SidebarComponent } from './components/shared/sidebar/sidebar.component'
 import { AltaComponent } from './components/articulos/alta/alta.component';
 import { MarcasComponent } from './components/complementos/marcas/marcas.component';
 import { RubrosComponent } from './components/complementos/rubros/rubros.component';
+import { MessageComponent } from './components/shared/message/message.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { RubrosComponent } from './components/complementos/rubros/rubros.compone
     SidebarComponent,
     AltaComponent,
     MarcasComponent,
-    RubrosComponent
+    RubrosComponent,
+    MessageComponent
   ],
   imports: [
     BrowserModule,

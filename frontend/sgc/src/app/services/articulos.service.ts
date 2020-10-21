@@ -12,4 +12,8 @@ export class ArticulosService {
 
   getClientes() { return this.http.get(`${environment.url}articulos/api/`,  {headers: {"Authorization": `Token ${localStorage.getItem('token')}`}}) }
 
+  addCliente(articulo){
+    return this.http.post(`${ environment.url }articulos/api/`, articulo, {headers: {"Authorization": `Token ${localStorage.getItem('token')}`}})
+  }
+
 }

@@ -24,10 +24,23 @@ class RubroSerializer(serializers.ModelSerializer):
         ]
 
 
-class ArticuloSerializer(serializers.ModelSerializer):
+class ArticuloListSerializer(serializers.ModelSerializer):
 
     marca = MarcaSerialzer()
     rubro = RubroSerializer()
+
+    class Meta:
+        model  = Articulo
+        fields = [
+            'id', 'nombre',
+            'codigo', 'descripcion',
+            'rubro', 'marca',
+            'precio_venta', 'precio_compra',
+            'imagen'
+        ]
+
+
+class ArticuloCreateSerializer(serializers.ModelSerializer):
 
     class Meta:
         model  = Articulo

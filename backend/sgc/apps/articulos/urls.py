@@ -9,7 +9,7 @@ from .views import (
 
 router = routers.DefaultRouter(trailing_slash=False)
 
-router.register(r'api', ArticuloViewSet)
+router.register(r'api/', ArticuloViewSet)
 router.register(r'api/marca/', MarcaViewSet)
 router.register(r'api/rubro/', RubroViewSet)
 

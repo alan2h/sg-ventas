@@ -1,4 +1,5 @@
 from rest_framework import viewsets, permissions
+from rest_framework.response import Response
 
 from .models import (
                      Articulo,
@@ -6,7 +7,8 @@ from .models import (
                      Rubro
                     )
 from .serializers import (
-                          ArticuloSerializer, 
+                          ArticuloListSerializer,
+                          ArticuloCreateSerializer,
                           MarcaSerialzer, 
                           RubroSerializer
                           )
@@ -20,9 +22,18 @@ class ArticuloViewSet(viewsets.ModelViewSet):
     API endpoint get all articles and edit that.
     """
     queryset = Articulo.objects.filter(activo=True)
-    serializer_class = ArticuloSerializer
+    serializer_class = ArticuloListSerializer
     pagination_class = StandarResultSetPagination
     permission_classes = [permissions.IsAuthenticated]
+
+    def create(self, request):
+        """
+            create a new articulo
+        """
+        serializer = ArticuloCreateSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response({'status': 'success', 'pk': serializer.instance.pk})
 
 
 class MarcaViewSet(viewsets.ModelViewSet):
