@@ -1,5 +1,7 @@
 from rest_framework import viewsets, permissions
 from rest_framework.response import Response
+from django.core.files.storage import default_storage
+
 
 from .models import (
                      Articulo,
@@ -30,8 +32,17 @@ class ArticuloViewSet(viewsets.ModelViewSet):
         """
             create a new articulo
         """
+        print(request.data)
         serializer = ArticuloCreateSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
+        # ---  se guarda los archivos ----- #
+        if 'imagen' in request.FILES:
+            files = request.FILES['imagen'] # or self.files['image'] in your form
+            with default_storage.open('articulos/'+ request.FILES['imagen'].name , 'wb+') as destination:
+                for chunk in files.chunks():
+                    destination.write(chunk)
+        # ---  se guarda los archivos ----- #
+
         serializer.save()
         return Response({'status': 'success', 'pk': serializer.instance.pk})
 

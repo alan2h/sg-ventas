@@ -6,7 +6,7 @@
     <app-message [mensaje]="mensaje" [status]="status" ></app-message>
     <!-- mensaje -->
      
-      <form method="post" [formGroup]="articuloForm" (ngSubmit)="onSubmit()">
+      <form method="post" [formGroup]="articuloForm" (ngSubmit)="onSubmit()" enctype="multipart/form-data">
          <!-- Toolbar -->
             <div class="btn-group btn-group-sm mb-3" role="group">
               <button type="submit" [disabled]="!articuloForm.valid" class="btn btn-light has-icon"><i class="material-icons mr-1">save</i> Guardar</button>
@@ -24,7 +24,7 @@
             </div>
           <!-- controls -->
 
-           <!-- controls -->
+        <!-- controls -->
            <div class="mb-3">
             <label for="validationTextarea">Nombre (*)</label>
             <input class="form-control" [class.is-invalid]="!articuloForm.controls.nombre.valid && articuloForm.controls.nombre.dirty" formControlName="nombre" placeholder="El nombre es requerido" >
@@ -41,6 +41,13 @@
             <div *ngIf="!articuloForm.controls.descripcion.valid && articuloForm.controls.descripcion.dirty" class="invalid-feedback">
               Este campo es obligtorio
             </div>
+          </div>
+        <!-- controls -->
+
+         <!-- controls -->
+           <div class="mb-3">
+            <label for="validationTextarea">Foto</label>
+            <input formControlName="imagen" (change)="imagesPreview($event)" class="form-control" type="file" >
           </div>
         <!-- controls -->
 

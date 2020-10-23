@@ -16,6 +16,7 @@ import { MarcasService } from '../../../services/complementos/marcas/marcas.serv
   styleUrls: ['./alta.component.css']
 })
 export class AltaComponent implements OnInit {
+  imageFile: {link: string, file: any, name: string};
 
   /*
     nombre = models.CharField(max_length=300, null=False, blank=False)
@@ -46,7 +47,8 @@ export class AltaComponent implements OnInit {
     rubro         : '',
     marca         : '',
     precio_compra : '',
-    precio_venta  : ''  
+    precio_venta  : '',
+    imagen        : ''
   }
 
   articuloForm = new FormGroup({
@@ -56,7 +58,8 @@ export class AltaComponent implements OnInit {
     rubro         : new FormControl('', [Validators.required]),
     marca         : new FormControl(''),
     precio_compra : new FormControl('', [Validators.required]),
-    precio_venta  : new FormControl('', [Validators.required])
+    precio_venta  : new FormControl('', [Validators.required]),
+    imagen        : new FormControl('')
   })
 
   constructor(
@@ -71,15 +74,35 @@ export class AltaComponent implements OnInit {
     this.marca_service.getMarcas().subscribe(data => this.marcas = data) // set marcas
   }
 
+  imagesPreview(event) {
+    if (event.target.files && event.target.files[0]) {
+        const reader = new FileReader();
+
+        reader.onload = (_event: any) => {
+            this.imageFile = {
+                link: _event.target.result,
+                file: event.srcElement.files[0],
+                name: event.srcElement.files[0].name
+            };
+        };
+        reader.readAsDataURL(event.target.files[0]);
+    }
+  }
+
   onSubmit(){
-    this.articulo.codigo        = this.articuloForm.controls.codigo.value;
-    this.articulo.nombre        = this.articuloForm.controls.nombre.value;
-    this.articulo.descripcion   = this.articuloForm.controls.descripcion.value;
-    this.articulo.rubro         = this.articuloForm.controls.rubro.value;
-    this.articulo.marca         = this.articuloForm.controls.marca.value;
-    this.articulo.precio_compra = this.articuloForm.controls.precio_compra.value;
-    this.articulo.precio_venta  = this.articuloForm.controls.precio_venta.value;
-    this.articulo_service.addCliente(this.articulo)
+    
+    const formData = new FormData();
+
+    formData.append('codigo', this.articuloForm.controls.codigo.value);
+    formData.append('nombre', this.articuloForm.controls.nombre.value);
+    formData.append('descripcion', this.articuloForm.controls.descripcion.value);
+    formData.append('rubro', this.articuloForm.controls.rubro.value);
+    formData.append('marca', this.articuloForm.controls.marca.value);
+    formData.append('precio_compra', this.articuloForm.controls.precio_compra.value);
+    formData.append('precio_venta',  this.articuloForm.controls.precio_venta.value);
+    formData.append('imagen',  this.imageFile.file, this.imageFile.name);
+
+    this.articulo_service.addCliente(formData)
       .subscribe(data => {
         if (data['status'] == 'success'){
           this.articuloForm.reset();
