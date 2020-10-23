@@ -2,7 +2,6 @@ from rest_framework import viewsets, permissions
 from rest_framework.response import Response
 from django.core.files.storage import default_storage
 
-
 from .models import (
                      Articulo,
                      Marca,
@@ -32,7 +31,6 @@ class ArticuloViewSet(viewsets.ModelViewSet):
         """
             create a new articulo
         """
-        print(request.data)
         serializer = ArticuloCreateSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         # ---  se guarda los archivos ----- #
@@ -45,6 +43,15 @@ class ArticuloViewSet(viewsets.ModelViewSet):
 
         serializer.save()
         return Response({'status': 'success', 'pk': serializer.instance.pk})
+
+    def destroy(self, request, *args, **kwargs):
+        """
+            change state of article 
+        """
+        articulo = Articulo.objects.get(pk=kwargs['pk'])
+        articulo.activo = False
+        articulo.save()
+        return Response({'status': 'success'})
 
 
 class MarcaViewSet(viewsets.ModelViewSet):

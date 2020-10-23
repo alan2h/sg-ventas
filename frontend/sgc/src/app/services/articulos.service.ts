@@ -12,16 +12,18 @@ export class ArticulosService {
 
   constructor(private http: HttpClient) { }
 
+  getCliente(id:string){
+    return this.http.get(`${ environment.url }articulos/api//${id}`, {headers: {"Authorization": `Token ${localStorage.getItem('token')}`}})
+  }
+
+  deleteCliente(id:string){
+    return this.http.delete(`${ environment.url }articulos/api//${id}`, {headers: {"Authorization": `Token ${localStorage.getItem('token')}`}})
+  }
+
   getClientes(url?:string) { 
-    if (url){
-      this.url_send = url;
-    }else{
-      this.url_send = `${environment.url}articulos/api/`;
-    }
+    if (url){ this.url_send = url; }else{ this.url_send = `${environment.url}articulos/api/`}
     return this.http.get(`${this.url_send}`,  {headers: {"Authorization": `Token ${localStorage.getItem('token')}`}}) }
   
-    //getClientesUrl(url?:string) { return this.http.get(`${url}`,  {headers: {"Authorization": `Token ${localStorage.getItem('token')}`}}) }
-
   addCliente(articulo){
     return this.http.post(`${ environment.url }articulos/api/`, articulo, {headers: {"Authorization": `Token ${localStorage.getItem('token')}`}})
   }

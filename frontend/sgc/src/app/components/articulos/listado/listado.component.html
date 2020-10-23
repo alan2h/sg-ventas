@@ -1,5 +1,9 @@
    <div class="card">
         <div class="card-body">
+          <!-- mensaje -->
+          <app-message [mensaje]="mensaje" [status]="status" ></app-message>
+          <!-- mensaje -->
+          
           <!-- Toolbar -->
           <div class="btn-group btn-group-sm mb-3" role="group">
             <button (click)="abrirAlta()" type="button" class="btn btn-light has-icon"><i class="material-icons mr-1">add_circle_outline</i> Agregar</button>
@@ -55,7 +59,8 @@
                   <td class="text-center">
                     <div class="btn-group btn-group-xs" role="group">
                       <a href="javascript:void(0)" class="btn btn-link btn-icon bigger-130 text-success"><i class="material-icons">edit</i></a>
-                      <a href="javascript:void(0)" class="btn btn-link btn-icon bigger-130 text-danger"><i class="material-icons">delete</i></a>
+                      <a [routerLink]="['/articulos/delete', item.id]"  class="btn btn-link btn-icon bigger-130 text-danger"><i class="material-icons">delete</i></a>
+                      <a class="btn btn-link btn-icon bigger-130 text-info"><i class="material-icons">details</i></a>
                     </div>
                   </td>
                 </tr>
@@ -94,15 +99,15 @@
 
             <!-- Pagination -->
             <ul class="pagination pagination-sm pagination-circle mb-0 ml-sm-auto mt-1 mt-sm-0">
-              <li class="page-item" (click)="pageAtras(atras)"><!--disabled-->
+              <li *ngIf="atras" class="page-item" (click)="pageAtras(atras)"><!--disabled-->
                 <span class="page-link"><i class="material-icons mr-1">skip_previous</i></span>
               </li>
-              <li class="page-item active"><span class="page-link">1</span></li>
+              <!-- <li class="page-item active"><span class="page-link">1</span></li>
               <li class="page-item"><a class="page-link" href="javascript:void(0)">2</a></li>
               <li class="page-item"><a class="page-link" href="javascript:void(0)">3</a></li>
               <li class="page-item readonly"><span class="page-link">...</span></li>
-              <li class="page-item"><a class="page-link" href="javascript:void(0)">10</a></li>
-              <li class="page-item" (click)="pageSiguiente(siguiente)"><a class="page-link" href="javascript:void(0)"><i class="material-icons mr-1">skip_next</i></a></li>
+              <li class="page-item"><a class="page-link" href="javascript:void(0)">10</a></li>-->
+              <li *ngIf="siguiente" class="page-item" (click)="pageSiguiente(siguiente)"><a class="page-link" href="javascript:void(0)"><i class="material-icons mr-1">skip_next</i></a></li>
             </ul>
 
           </div><!-- /.d-flex -->

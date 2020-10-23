@@ -9,7 +9,8 @@ class ArticuloAdmin(admin.ModelAdmin):
         'nombre',
         'descripcion',
         'marca',
-        'precio_venta'
+        'precio_venta',
+        'activo'
     ]
 
 admin.site.register(Articulo, ArticuloAdmin)

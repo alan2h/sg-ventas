@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ArticulosService } from '../../../services/articulos.service';
 
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-listado',
@@ -13,13 +13,21 @@ export class ListadoComponent implements OnInit {
   public articulos;
   public siguiente:string;
   public atras:string;
+  public mensaje:string;
+  public status:string;
 
   constructor( private articulos_service: ArticulosService,
-               private router: Router ) { }
+               private router: Router,
+               private activated_router: ActivatedRoute ) { }
 
   ngOnInit(): void {
     this.articulos_service.getClientes()
       .subscribe(data => this.receivData(data))
+
+    this.activated_router.params.subscribe(params => {
+      this.mensaje = params['mensaje'],
+      this.status = params['status']
+    })
   }
 
   abrirAlta(){

@@ -15,6 +15,8 @@ import { AltaComponent } from './components/articulos/alta/alta.component';
 import { MarcasComponent } from './components/complementos/marcas/marcas.component';
 import { RubrosComponent } from './components/complementos/rubros/rubros.component';
 import { MessageComponent } from './components/shared/message/message.component';
+import { DeleteComponent } from './components/articulos/delete/delete.component';
+import { Page404Component } from './components/page404/page404.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +30,9 @@ import { MessageComponent } from './components/shared/message/message.component'
     AltaComponent,
     MarcasComponent,
     RubrosComponent,
-    MessageComponent
+    MessageComponent,
+    DeleteComponent,
+    Page404Component
   ],
   imports: [
     BrowserModule,
