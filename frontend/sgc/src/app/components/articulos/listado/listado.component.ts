@@ -11,15 +11,15 @@ import { Router } from '@angular/router';
 export class ListadoComponent implements OnInit {
 
   public articulos;
+  public siguiente:string;
+  public atras:string;
 
   constructor( private articulos_service: ArticulosService,
                private router: Router ) { }
 
   ngOnInit(): void {
     this.articulos_service.getClientes()
-      .subscribe(data => {
-        this.articulos = data['results'];
-      })
+      .subscribe(data => this.receivData(data))
   }
 
   abrirAlta(){
@@ -27,6 +27,22 @@ export class ListadoComponent implements OnInit {
       link para abrir el alta del articulos
     */
     this.router.navigate(['/articulos/alta']);
+  }
+  
+  pageSiguiente(siguiente:string){
+    this.articulos_service.getClientes(siguiente)
+      .subscribe(data => this.receivData(data))
+  }
+
+  pageAtras(atras:string){
+    this.articulos_service.getClientes(atras)
+    .subscribe(data => this.receivData(data))
+  }
+
+  receivData(data:any){
+      this.articulos = data['results'];
+      this.siguiente = data['next'];
+      this.atras     = data['previous'];
   }
 
 }

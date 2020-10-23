@@ -55,8 +55,8 @@ export class AltaComponent implements OnInit {
     codigo        : new FormControl('', [Validators.required]),
     nombre        : new FormControl('', [Validators.required]),
     descripcion   : new FormControl(''),
-    rubro         : new FormControl('', [Validators.required]),
-    marca         : new FormControl(''),
+    rubro         : new FormControl(null, [Validators.required]),
+    marca         : new FormControl(null),
     precio_compra : new FormControl('', [Validators.required]),
     precio_venta  : new FormControl('', [Validators.required]),
     imagen        : new FormControl('')
@@ -97,11 +97,11 @@ export class AltaComponent implements OnInit {
     formData.append('nombre', this.articuloForm.controls.nombre.value);
     formData.append('descripcion', this.articuloForm.controls.descripcion.value);
     formData.append('rubro', this.articuloForm.controls.rubro.value);
-    formData.append('marca', this.articuloForm.controls.marca.value);
     formData.append('precio_compra', this.articuloForm.controls.precio_compra.value);
     formData.append('precio_venta',  this.articuloForm.controls.precio_venta.value);
-    formData.append('imagen',  this.imageFile.file, this.imageFile.name);
-
+    if (this.articuloForm.controls.marca.value){formData.append('marca', this.articuloForm.controls.marca.value)};
+    if (this.imageFile){formData.append('imagen',  this.imageFile.file, this.imageFile.name);}
+    
     this.articulo_service.addCliente(formData)
       .subscribe(data => {
         if (data['status'] == 'success'){
