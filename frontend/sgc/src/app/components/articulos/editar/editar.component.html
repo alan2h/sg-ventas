@@ -5,17 +5,17 @@
       <form method="post" [formGroup]="articuloForm" (ngSubmit)="onSubmit()" enctype="multipart/form-data">
          <!-- Toolbar -->
             <div class="btn-group btn-group-sm mb-3" role="group">
-              <button type="submit" [disabled]="!articuloForm.valid" class="btn btn-light has-icon"><i class="material-icons mr-1">save</i> Guardar</button>
-              <button type="button" class="btn btn-light has-icon"><i class="material-icons mr-1">cancel</i> Cancelar</button>
+              <button type="submit" [disabled]="!articuloForm.valid || articuloForm.untouched" class="btn btn-light has-icon"><i class="material-icons mr-1">save</i> Guardar</button>
+              <button type="button" (click)="onCancel()" class="btn btn-light has-icon"><i class="material-icons mr-1">cancel</i> Cancelar</button>
           </div>  
           <!-- Toolbar -->
 
-            <!-- controls -->
-           <div class="mb-3">
-            <label for="validationTextarea">Foto actual</label>
-            <img [src]="image" width="300" height="300" alt="Imagen Actual" class="img-thumbnail">
-          </div>
-        <!-- controls -->
+          <!-- controls -->
+            <div *ngIf="image" class="mb-3">
+              <label for="validationTextarea">Foto actual</label>
+              <img [src]="image" width="300" height="300" alt="Imagen Actual" class="img-thumbnail">
+            </div>
+          <!-- controls -->
           
           <!-- controls -->
             <div class="mb-3">
@@ -47,12 +47,10 @@
           </div>
         <!-- controls -->
 
-        
-
          <!-- controls -->
            <div class="mb-3">
             <label for="validationTextarea">Foto</label>
-            <input  class="form-control" type="file" >
+            <input class="form-control" type="file" >
           </div>
         <!-- controls -->
 

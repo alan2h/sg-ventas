@@ -28,4 +28,8 @@ export class ArticulosService {
     return this.http.post(`${ environment.url }articulos/api/`, articulo, {headers: {"Authorization": `Token ${localStorage.getItem('token')}`}})
   }
 
+  updateCliente(id:string, articulo:any){
+    return this.http.put(`${ environment.url }articulos/api//${id}`, articulo, {headers: {"Authorization": `Token ${localStorage.getItem('token')}`}})
+  }
+
 }

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Validators, FormGroup, FormControl } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { ArticulosService } from '../../../services/articulos.service';
 
@@ -14,6 +14,8 @@ import { RubrosService } from '../../../services/complementos/rubros/rubros.serv
   styleUrls: ['./editar.component.css']
 })
 export class EditarComponent implements OnInit {
+
+  imageFile: {link: string, file:any, name:string}
 
   public id_articulo;
   public articulo;
@@ -36,6 +38,7 @@ export class EditarComponent implements OnInit {
 
   constructor(
     private articulo_service: ArticulosService,
+    private router: Router,
     private actived_route: ActivatedRoute,
     private marcas_service: MarcasService,
     private rubros_service: RubrosService
@@ -72,8 +75,40 @@ export class EditarComponent implements OnInit {
     })
   }
 
+  imagesPreview(event){
+    if (event.target.files && event.target.files[0]) {
+      const reader = new FileReader();
+
+      reader.onload = (_event: any) => {
+          this.imageFile = {
+              link: _event.target.result,
+              file: event.srcElement.files[0],
+              name: event.srcElement.files[0].name
+          };
+      };
+      reader.readAsDataURL(event.target.files[0]);
+    }
+  }
+
   onSubmit(){
-    console.log(this.articuloForm)
+    const formData = new FormData();
+    formData.append('codigo', this.articuloForm.controls.codigo.value);
+    formData.append('nombre', this.articuloForm.controls.nombre.value);
+    formData.append('descripcion', this.articuloForm.controls.descripcion.value);
+    formData.append('rubro', this.articuloForm.controls.rubro.value);
+    formData.append('precio_compra', this.articuloForm.controls.precio_compra.value);
+    formData.append('precio_venta',  this.articuloForm.controls.precio_venta.value);
+    if (this.articuloForm.controls.marca.value){formData.append('marca', this.articuloForm.controls.marca.value)};
+    if (this.imageFile){formData.append('imagen',  this.imageFile.file, this.imageFile.name);}
+
+    this.articulo_service.updateCliente(this.id_articulo, formData)
+      .subscribe(data => {
+        console.log(data);
+      })
+  }
+
+  onCancel(){
+    this.router.navigate(['/articulos/listado'])
   }
 
 }
