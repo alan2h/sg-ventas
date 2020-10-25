@@ -58,11 +58,11 @@
                   <td>{{ item.precio_venta  | currency }}</td>
                   <td class="text-center">
                     <div class="btn-group btn-group-xs" role="group">
-                      <a href="javascript:void(0)" class="btn btn-link btn-icon bigger-130 text-success"><i class="material-icons">edit</i></a>
+                      <a  [routerLink]="['/articulos/editar', item.id]" class="btn btn-link btn-icon bigger-130 text-success"><i class="material-icons">edit</i></a>
                       <a [routerLink]="['/articulos/delete', item.id]"  class="btn btn-link btn-icon bigger-130 text-danger"><i class="material-icons">delete</i></a>
                       <a class="btn btn-link btn-icon bigger-130 text-info"><i class="material-icons">details</i></a>
                     </div>
-                  </td>
+                  </td> 
                 </tr>
                
               </tbody>

@@ -16,7 +16,6 @@ import { MarcasService } from '../../../services/complementos/marcas/marcas.serv
   styleUrls: ['./alta.component.css']
 })
 export class AltaComponent implements OnInit {
-  imageFile: {link: string, file: any, name: string};
 
   /*
     nombre = models.CharField(max_length=300, null=False, blank=False)
@@ -34,6 +33,7 @@ export class AltaComponent implements OnInit {
     activo = models.BooleanField(default=True)
   */
 
+  imageFile: {link: string, file: any, name: string};
   rubros:any;
   marcas:any;
 

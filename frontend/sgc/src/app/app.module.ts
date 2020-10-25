@@ -17,6 +17,7 @@ import { RubrosComponent } from './components/complementos/rubros/rubros.compone
 import { MessageComponent } from './components/shared/message/message.component';
 import { DeleteComponent } from './components/articulos/delete/delete.component';
 import { Page404Component } from './components/page404/page404.component';
+import { EditarComponent } from './components/articulos/editar/editar.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { Page404Component } from './components/page404/page404.component';
     RubrosComponent,
     MessageComponent,
     DeleteComponent,
-    Page404Component
+    Page404Component,
+    EditarComponent
   ],
   imports: [
     BrowserModule,
