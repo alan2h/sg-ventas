@@ -15,7 +15,7 @@ import { RubrosService } from '../../../services/complementos/rubros/rubros.serv
 })
 export class EditarComponent implements OnInit {
 
-  imageFile: {link: string, file:any, name:string}
+  imageFile: {link: string, file: any, name: string};
 
   public id_articulo;
   public articulo;
@@ -75,18 +75,18 @@ export class EditarComponent implements OnInit {
     })
   }
 
-  imagesPreview(event){
+  imagesPreview(event) {
     if (event.target.files && event.target.files[0]) {
-      const reader = new FileReader();
+        const reader = new FileReader();
 
-      reader.onload = (_event: any) => {
-          this.imageFile = {
-              link: _event.target.result,
-              file: event.srcElement.files[0],
-              name: event.srcElement.files[0].name
-          };
-      };
-      reader.readAsDataURL(event.target.files[0]);
+        reader.onload = (_event: any) => {
+            this.imageFile = {
+                link: _event.target.result,
+                file: event.srcElement.files[0],
+                name: event.srcElement.files[0].name
+            };
+        };
+        reader.readAsDataURL(event.target.files[0]);
     }
   }
 
@@ -100,10 +100,15 @@ export class EditarComponent implements OnInit {
     formData.append('precio_venta',  this.articuloForm.controls.precio_venta.value);
     if (this.articuloForm.controls.marca.value){formData.append('marca', this.articuloForm.controls.marca.value)};
     if (this.imageFile){formData.append('imagen',  this.imageFile.file, this.imageFile.name);}
-
+    console.log(this.imageFile);
+    console.log(formData);
     this.articulo_service.updateCliente(this.id_articulo, formData)
       .subscribe(data => {
-        console.log(data);
+         if (data['status'] == 'success'){
+            let mensaje:string;
+            mensaje = `El artículo ${data['pk']} se actualizo con éxito`;
+            this.router.navigate(['/articulos/listado', {'mensaje': mensaje, 'status': 'success'}])
+         }
       })
   }
 

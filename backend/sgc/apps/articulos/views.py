@@ -1,6 +1,10 @@
 from rest_framework import viewsets, permissions
 from rest_framework.response import Response
 from django.core.files.storage import default_storage
+from rest_framework.parsers import ( 
+                                    FileUploadParser, 
+                                    MultiPartParser
+                                    )
 
 from .models import (
                      Articulo,
@@ -25,6 +29,7 @@ class ArticuloViewSet(viewsets.ModelViewSet):
     queryset = Articulo.objects.filter(activo=True)
     serializer_class = ArticuloListSerializer
     pagination_class = StandarResultSetPagination
+    parser_classes = [MultiPartParser]
     permission_classes = [permissions.IsAuthenticated]
 
     def create(self, request):
@@ -33,20 +38,28 @@ class ArticuloViewSet(viewsets.ModelViewSet):
         """
         serializer = ArticuloCreateSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-        # ---  se guarda los archivos ----- #
-        if 'imagen' in request.FILES:
-            files = request.FILES['imagen'] # or self.files['image'] in your form
-            with default_storage.open('articulos/'+ request.FILES['imagen'].name , 'wb+') as destination:
-                for chunk in files.chunks():
-                    destination.write(chunk)
-        # ---  se guarda los archivos ----- #
+        serializer.save()
+        return Response({'status': 'success', 'pk': serializer.instance.pk})
 
+    def update(self, request, pk=None):
+        """
+            update articulo data
+            params:
+                pk: id of instance
+        """
+        articulo = Articulo.objects.get(pk=pk)
+        serializer = ArticuloCreateSerializer(data=request.data, 
+                                              instance=articulo)
+       
+        serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response({'status': 'success', 'pk': serializer.instance.pk})
 
     def destroy(self, request, *args, **kwargs):
         """
             change state of article 
+            params:
+                pk : id of instance
         """
         articulo = Articulo.objects.get(pk=kwargs['pk'])
         articulo.activo = False
