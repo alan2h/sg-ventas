@@ -8,36 +8,35 @@
           <div class="btn-group btn-group-sm mb-3" role="group">
             <button (click)="abrirAlta()" type="button" class="btn btn-light has-icon"><i class="material-icons mr-1">add_circle_outline</i> Agregar</button>
             <button type="button" class="btn btn-light has-icon"><i class="material-icons mr-1">refresh</i> Refresh</button>
-            <button type="button" class="btn btn-light has-icon"><i class="mr-1" data-feather="paperclip"></i> Export</button>
+            <button type="button" class="btn btn-light has-icon"><i class="material-icons mr-1">picture_as_pdf</i> Export</button>
           </div>
            <!-- Toolbar -->
 
           <div class="table-responsive">
             <table class="table table-bordered table-sm has-checkAll mb-0" data-bulk-target="#bulk-dropdown" data-checked-class="table-warning">
-              <caption class="p-0 text-right"><small>Mostrando 4 entradas de 10</small></caption>
+              <caption  class="p-0 text-right"><small *ngIf="articulos">Mostrando 10 entradas de {{ articulos.length }} registros en total</small></caption>
 
               <!-- Filter columns -->
               <thead class="thead-primary">
                 <tr class="column-filter">
-                  <th colspan="2"></th>
-                  <th><input type="text" class="form-control form-control-sm border-primary" placeholder="Buscar por nombre"></th>
-                  <th><input type="text" class="form-control form-control-sm border-primary" placeholder="Buscar por descripcion"></th>
-                  <th><input type="text" class="form-control form-control-sm border-primary" placeholder="Buscar por precio compra"></th>
-                  <th><input type="text" class="form-control form-control-sm border-primary" placeholder="Buscar por precio venta"></th>
-                  <th><button class="btn btn-sm btn-outline-primary btn-block has-icon"><i class="material-icons">search</i></button></th>
+                  <th><input type="text" #buscar_codigo (keyup)="buscarCodigo(buscar_codigo.value)" class="form-control form-control-sm border-primary" placeholder="Buscar por codigo"></th>
+                  <th><input type="text" #buscar_nombre (keyup)="buscarNombre(buscar_nombre.value)" class="form-control form-control-sm border-primary" placeholder="Buscar por nombre"></th>
+                  <th><input type="text" #buscar_descripcion (keyup)="buscarDescripcion(buscar_descripcion.value)" class="form-control form-control-sm border-primary" placeholder="Buscar por precio descripción"></th>
+                  <th><input type="text" #buscar_marca (keyup)="buscarMarca(buscar_marca.value)" class="form-control form-control-sm border-primary" placeholder="Buscar por Marca"></th>
+                  <th><input type="text" #buscar_rubro (keyup)="buscarRubro(buscar_rubro.value)" class="form-control form-control-sm border-primary" placeholder="Buscar por Rubro"></th>
+                  <th><input type="text" #buscar_precio_venta (keyup)="buscarPrecioVenta(buscar_precio_venta.value)" class="form-control form-control-sm border-primary" placeholder="Buscar por precio venta"></th>
+                  <th><input type="text" #buscar_precio_compra (keyup)="buscarPrecioCompra(buscar_precio_compra.value)" class="form-control form-control-sm border-primary" placeholder="Buscar por precio venta"></th>
+                  <th><button (click)="buscar()" class="btn btn-sm btn-outline-primary btn-block has-icon"><i class="material-icons">search</i></button></th>
                 </tr>
                 <tr>
-                  <th scope="col">
-                    <div class="custom-control custom-control-nolabel custom-checkbox">
-                      <input type="checkbox" class="custom-control-input" id="checkAll">
-                      <label class="custom-control-label" for="checkAll"></label>
-                    </div>
-                  </th>
+                  
                   <th scope="col" class="text-center">Código</th>
-                  <th scope="col"><a href="javascript:void(0)" class="sorting asc">Nombre</a></th>
-                  <th scope="col"><a href="javascript:void(0)" class="sorting">Descripción</a></th>
-                  <th scope="col"><a href="javascript:void(0)" class="sorting">Compra</a></th>
-                  <th scope="col"><a href="javascript:void(0)" class="sorting">Venta</a></th>
+                  <th scope="col"><a (click)="order('Nombre')" class="sorting {{ nombre_order }}">Nombre</a></th>
+                  <th scope="col"><a class="">Descripción</a></th>
+                  <th scope="col"><a class="">Marca</a></th>
+                  <th scope="col"><a class="">Rubro</a></th>
+                  <th scope="col"><a class="">Compra</a></th>
+                  <th scope="col"><a class="">Venta</a></th>
                   <th scope="col" class="text-center">Acciones</th>
                 </tr>
               </thead>
@@ -45,15 +44,14 @@
               <tbody>
 
                 <tr *ngFor="let item of articulos">
-                  <td>
-                    <div class="custom-control custom-control-nolabel custom-checkbox">
-                      <input type="checkbox" class="custom-control-input" id="checkbox1">
-                      <label for="checkbox1" class="custom-control-label"></label>
-                    </div>
-                  </td>
+                  
                   <td>{{ item.codigo }}</td>
                   <td>{{ item.nombre }}</td>
                   <td>{{ item.descripcion }}</td>
+                  <td *ngIf="item.marca">{{ item.marca.descripcion }}</td>
+                  <td *ngIf="!item.marca">--</td>
+                  <td *ngIf="item.rubro">{{ item.rubro.descripcion }}</td>
+                  <td *ngIf="!item.rubro">--</td>
                   <td>{{ item.precio_compra | currency }}</td>
                   <td>{{ item.precio_venta  | currency }}</td>
                   <td class="text-center">
@@ -86,7 +84,7 @@
             </div>
 
             <!-- Show entries -->
-            <form class="form-inline mt-1 mt-sm-0">
+            <!-- <form class="form-inline mt-1 mt-sm-0">
               Mostrar
               <select class="custom-select custom-select-sm w-auto mx-1">
                 <option value="5">5</option>
@@ -95,7 +93,7 @@
                 <option value="50">50</option>
               </select>
               Entradas
-            </form>
+            </form>-->
 
             <!-- Pagination -->
             <ul class="pagination pagination-sm pagination-circle mb-0 ml-sm-auto mt-1 mt-sm-0">

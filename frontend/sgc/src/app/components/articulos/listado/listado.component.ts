@@ -16,6 +16,18 @@ export class ListadoComponent implements OnInit {
   public mensaje:string;
   public status:string;
 
+  public nombre_order:string = 'desc';
+
+  txt_search = {
+    codigo       : '',
+    nombre       : '',
+    descripcion  : '',
+    precio_venta : '',
+    precio_compra: '',
+    marca: '',
+    rubro: '',
+  }
+
   constructor( private articulos_service: ArticulosService,
                private router: Router,
                private activated_router: ActivatedRoute ) { }
@@ -28,6 +40,33 @@ export class ListadoComponent implements OnInit {
       this.mensaje = params['mensaje'],
       this.status = params['status']
     })
+  }
+
+  buscarCodigo(texto:string){       this.txt_search.codigo = texto; }
+  buscarNombre(texto:string){       this.txt_search.nombre = texto; }
+  buscarDescripcion(texto:string){  this.txt_search.descripcion = texto; }
+  buscarPrecioVenta(texto:string){  this.txt_search.precio_venta = texto; }
+  buscarPrecioCompra(texto:string){ this.txt_search.precio_compra = texto; }
+  buscarMarca(texto:string){        this.txt_search.marca = texto; }
+  buscarRubro(texto:string){        this.txt_search.rubro = texto; }
+
+  order(campo:string){
+    if (campo == 'Nombre'){
+      if (this.nombre_order == 'asc'){
+        this.nombre_order = 'desc';
+      }else{
+        this.nombre_order = 'asc';
+      }
+    }
+    this.buscar(); // order by selection 
+  }
+
+  buscar(){
+    console.log(this.nombre_order);
+    this.articulos_service.searchCliente(this.txt_search.codigo, this.txt_search.nombre, 
+      this.txt_search.descripcion, this.txt_search.precio_venta, 
+      this.txt_search.precio_compra, this.txt_search.marca, this.txt_search.rubro, this.nombre_order)
+      .subscribe(data => this.receivData(data))
   }
 
   abrirAlta(){

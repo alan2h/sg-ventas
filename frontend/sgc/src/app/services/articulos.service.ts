@@ -16,6 +16,10 @@ export class ArticulosService {
     return this.http.get(`${ environment.url }articulos/api//${id}`, {headers: {"Authorization": `Token ${localStorage.getItem('token')}`}})
   }
 
+  searchCliente(codigo?:string, nombre?:string, descripcion?:string, precio_venta?:string, precio_compra?:string, marca?:string, rubro?:string, nombre_order?:string, descripcion_order?:string){
+    return this.http.get(`${ environment.url }articulos/api/?codigo=${codigo}&nombre=${nombre}&descripcion=${descripcion}&precio_venta=${precio_venta}&precio_compra=${precio_compra}&marca=${marca}&rubro=${rubro}&nombre_order=${nombre_order}`, {headers: {"Authorization": `Token ${localStorage.getItem('token')}`}})
+  }
+
   deleteCliente(id:string){
     return this.http.delete(`${ environment.url }articulos/api//${id}`, {headers: {"Authorization": `Token ${localStorage.getItem('token')}`}})
   }

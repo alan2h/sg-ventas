@@ -32,6 +32,46 @@ class ArticuloViewSet(viewsets.ModelViewSet):
     parser_classes = [MultiPartParser]
     permission_classes = [permissions.IsAuthenticated]
 
+    def get_queryset(self):
+        """
+            filter all data from list
+        """
+        queryset = Articulo.objects.filter(activo=True)
+        
+        # set filter #####################
+        codigo =  self.request.query_params.get('codigo', None)
+        if codigo:
+            queryset = queryset.filter(codigo=codigo)
+
+        nombre =  self.request.query_params.get('nombre', None)
+        if nombre:
+            queryset = queryset.filter(nombre__icontains=nombre)
+
+        descripcion =  self.request.query_params.get('descripcion', None)
+        if descripcion:
+            queryset = queryset.filter(descripcion__icontains=descripcion)
+        
+        precio_venta =  self.request.query_params.get('precio_venta', None)
+        if precio_venta:
+            queryset = queryset.filter(precio_venta=precio_venta)
+
+        precio_compra =  self.request.query_params.get('precio_compra', None)
+        if precio_compra:
+            queryset = queryset.filter(precio_compra=precio_compra)
+        
+        marca =  self.request.query_params.get('marca', None)
+        if marca:
+            queryset = queryset.filter(marca__descripcion__icontains=marca)
+
+        rubro =  self.request.query_params.get('rubro', None)
+        if rubro:
+            queryset = queryset.filter(rubro__descripcion__icontains=rubro)
+        #####################################################
+        queryset = queryset.order_by('nombre')
+        if 'asc' == self.request.query_params.get('nombre_order'): 
+            queryset = queryset.order_by('-nombre')
+        return queryset
+
     def create(self, request):
         """
             create a new articulo
