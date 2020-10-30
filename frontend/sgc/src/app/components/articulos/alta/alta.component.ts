@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import * as jquery from 'jquery';
+
 
 // articulos services 
 import { ArticulosService } from '../../../services/articulos.service';
@@ -72,6 +74,9 @@ export class AltaComponent implements OnInit {
   ngOnInit(): void {
     this.rubro_service.getRubros().subscribe(data => this.rubros = data) // set rubros 
     this.marca_service.getMarcas().subscribe(data => this.marcas = data) // set marcas
+    //--- select 2 ----//
+    jquery('.select').select2(); //initialize select2 to particular input
+
   }
 
   imagesPreview(event) {

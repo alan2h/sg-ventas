@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Validators, FormGroup, FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
+import * as jquery from 'jquery';
+
 import { ArticulosService } from '../../../services/articulos.service';
 
 // complementos
@@ -67,6 +69,8 @@ export class EditarComponent implements OnInit {
         .subscribe(data =>  this.marcas = data)
       this.rubros_service.getRubros()
         .subscribe(data => this.rubros = data )
+
+      jquery('.select').select2(); // insert select2
   }
 
   getIdParam(){
