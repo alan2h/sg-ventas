@@ -61,7 +61,7 @@ export class EditarComponent implements OnInit {
         this.articuloForm.patchValue({'precio_venta': this.articulo.precio_venta});
         this.image = this.articulo.imagen; // set image to template 
         id_rubro = this.articulo.rubro.id;
-        id_marca = this.articulo.marca.id;
+        //id_marca = this.articulo.marca.id;
         
       })
 
@@ -69,10 +69,10 @@ export class EditarComponent implements OnInit {
         .subscribe(data =>  this.marcas = data )
       this.rubros_service.getRubros()
         .subscribe(data => this.rubros = data )
-
-      jquery('.select').select2(); // insert select2
-      jquery('#id_rubro').val(id_rubro).trigger('change'); // set value select2
-        if (this.articulo.marca){ jquery('#id_marca').val(id_marca).trigger('change') } // set value select2
+      console.log(id_rubro, '===================')
+      if (id_rubro){jquery('#id_rubro').val(id_rubro).trigger('change');}// insert select2
+      jquery('.select').select2();
+      if (id_marca){ jquery('#id_marca').val(id_marca).trigger('change') } // set value select2
   }
 
   getIdParam(){
