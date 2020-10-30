@@ -48,6 +48,8 @@ export class EditarComponent implements OnInit {
 
   ngOnInit(): void {
     this.getIdParam();
+    let id_marca = '';
+    let id_rubro = '';
     this.articulo_service.getCliente(this.id_articulo)
       .subscribe(data => {
         this.articulo = data;
@@ -55,22 +57,22 @@ export class EditarComponent implements OnInit {
         this.articuloForm.patchValue({'nombre': this.articulo.nombre});
         this.articuloForm.patchValue({'descripcion': this.articulo.descripcion});
         this.articuloForm.patchValue({'imagen': this.articulo.imagen});
-
-        this.image = this.articulo.imagen; // set image to template
-        if (this.articulo.marca){
-          this.articuloForm.patchValue({'marca': this.articulo.marca.id});
-        }
-        this.articuloForm.patchValue({'rubro': this.articulo.rubro.id});
         this.articuloForm.patchValue({'precio_compra': this.articulo.precio_compra});
         this.articuloForm.patchValue({'precio_venta': this.articulo.precio_venta});
+        this.image = this.articulo.imagen; // set image to template 
+        id_rubro = this.articulo.rubro.id;
+        id_marca = this.articulo.marca.id;
+        
       })
 
       this.marcas_service.getMarcas()
-        .subscribe(data =>  this.marcas = data)
+        .subscribe(data =>  this.marcas = data )
       this.rubros_service.getRubros()
         .subscribe(data => this.rubros = data )
 
       jquery('.select').select2(); // insert select2
+      jquery('#id_rubro').val(id_rubro).trigger('change'); // set value select2
+        if (this.articulo.marca){ jquery('#id_marca').val(id_marca).trigger('change') } // set value select2
   }
 
   getIdParam(){
@@ -99,13 +101,12 @@ export class EditarComponent implements OnInit {
     formData.append('codigo', this.articuloForm.controls.codigo.value);
     formData.append('nombre', this.articuloForm.controls.nombre.value);
     formData.append('descripcion', this.articuloForm.controls.descripcion.value);
-    formData.append('rubro', this.articuloForm.controls.rubro.value);
+    formData.append('rubro', jquery('#id_rubro').val());
     formData.append('precio_compra', this.articuloForm.controls.precio_compra.value);
     formData.append('precio_venta',  this.articuloForm.controls.precio_venta.value);
-    if (this.articuloForm.controls.marca.value){formData.append('marca', this.articuloForm.controls.marca.value)};
+    if (jquery('#id_marca').val()){formData.append('marca', jquery('#id_marca').val())};
     if (this.imageFile){formData.append('imagen',  this.imageFile.file, this.imageFile.name);}
-    console.log(this.imageFile);
-    console.log(formData);
+  
     this.articulo_service.updateCliente(this.id_articulo, formData)
       .subscribe(data => {
          if (data['status'] == 'success'){

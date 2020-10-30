@@ -97,14 +97,14 @@ export class AltaComponent implements OnInit {
   onSubmit(){
     
     const formData = new FormData();
-
+    
     formData.append('codigo', this.articuloForm.controls.codigo.value);
     formData.append('nombre', this.articuloForm.controls.nombre.value);
     formData.append('descripcion', this.articuloForm.controls.descripcion.value);
-    formData.append('rubro', this.articuloForm.controls.rubro.value);
+    formData.append('rubro', jquery('#id_rubro').val());
     formData.append('precio_compra', this.articuloForm.controls.precio_compra.value);
     formData.append('precio_venta',  this.articuloForm.controls.precio_venta.value);
-    if (this.articuloForm.controls.marca.value){formData.append('marca', this.articuloForm.controls.marca.value)};
+    if (jquery('#id_marca').val()){formData.append('marca', jquery('#id_marca').val())};
     if (this.imageFile){formData.append('imagen',  this.imageFile.file, this.imageFile.name);}
     
     this.articulo_service.addCliente(formData)
