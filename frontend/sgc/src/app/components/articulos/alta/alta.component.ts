@@ -9,6 +9,7 @@ import { ArticulosService } from '../../../services/articulos.service';
 //complementos
 import { RubrosService } from '../../../services/complementos/rubros/rubros.service';
 import { MarcasService } from '../../../services/complementos/marcas/marcas.service';
+import { ProveedoresService } from '../../../services/proveedores/proveedores.service';
 import { Subscription } from 'rxjs';
 
 
@@ -19,28 +20,15 @@ import { Subscription } from 'rxjs';
 })
 export class AltaComponent implements OnInit, OnDestroy {
 
-  /*
-    nombre = models.CharField(max_length=300, null=False, blank=False)
-    codigo = models.CharField(max_length=800, null=True, blank=True)
-    descripcion = models.CharField(max_length=300, null=True, blank=True)
-    rubro = models.ForeignKey(Rubro, null=True, blank=True,
-    on_delete=models.CASCADE)
-    marca = models.ForeignKey(Marca, null=True, blank=True,
-    on_delete=models.CASCADE)
-    precio_venta = models.DecimalField(max_digits=100, decimal_places=2,
-    null=False, blank=False)
-    precio_compra = models.DecimalField(max_digits=100, decimal_places=2,
-    null=False, blank=False)
-    imagen = models.ImageField(upload_to='articulos', null=True, blank=True)
-    activo = models.BooleanField(default=True)
-  */
 
-  subscription_marcas   : Subscription;
-  subscription_rubros   : Subscription;
+  subscription_marcas     : Subscription;
+  subscription_rubros     : Subscription;
+  subscription_proveedores: Subscription;
 
   imageFile: {link: string, file: any, name: string};
   rubros:any;
   marcas:any;
+  proveedores: any;
 
   mensaje:string = "";
   status:string  = "";
@@ -53,7 +41,8 @@ export class AltaComponent implements OnInit, OnDestroy {
     marca         : '',
     precio_compra : '',
     precio_venta  : '',
-    imagen        : ''
+    imagen        : '',
+    proveedor     : ''
   }
 
   articuloForm = new FormGroup({
@@ -64,19 +53,22 @@ export class AltaComponent implements OnInit, OnDestroy {
     marca         : new FormControl(null),
     precio_compra : new FormControl('', [Validators.required]),
     precio_venta  : new FormControl('', [Validators.required]),
-    imagen        : new FormControl('')
+    imagen        : new FormControl(''),
+    proveedor     : new FormControl('')
   })
 
   constructor(
     private rubro_service: RubrosService,
     private marca_service: MarcasService,
     private router: Router,
-    private articulo_service: ArticulosService
+    private articulo_service: ArticulosService,
+    private proveedor_servicie: ProveedoresService
     ) { }
 
   ngOnInit(): void {
-    this.subscription_rubros = this.rubro_service.getRubros().subscribe(data => this.rubros = data) // set rubros 
+    this.subscription_rubros = this.rubro_service.getRubros().subscribe(data => this.rubros = data) // set rubros
     this.subscription_marcas = this.marca_service.getMarcas().subscribe(data => this.marcas = data) // set marcas
+    this.subscription_proveedores = this.proveedor_servicie.getProveedores().subscribe(data => this.proveedores = data) // set proveedores
   }
 
   imagesPreview(event) {
@@ -102,6 +94,7 @@ export class AltaComponent implements OnInit, OnDestroy {
     formData.append('rubro', this.articuloForm.controls.rubro.value);
     formData.append('precio_compra', this.articuloForm.controls.precio_compra.value);
     formData.append('precio_venta',  this.articuloForm.controls.precio_venta.value);
+    formData.append('proveedor', this.articuloForm.controls.proveedor.value);
     if (this.articuloForm.controls.marca.value){
       formData.append('marca', this.articuloForm.controls.marca.value);
     }else{
@@ -125,5 +118,6 @@ export class AltaComponent implements OnInit, OnDestroy {
   ngOnDestroy():void{
     this.subscription_marcas.unsubscribe(); // desescribirme de este observable
     this.subscription_rubros.unsubscribe(); // desescribirme de rubros
+    this.subscription_proveedores.unsubscribe();
   }
 }

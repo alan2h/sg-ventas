@@ -2,6 +2,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NgSelectModule } from '@ng-select/ng-select';
+
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -18,6 +20,8 @@ import { MessageComponent } from './components/shared/message/message.component'
 import { DeleteComponent } from './components/articulos/delete/delete.component';
 import { Page404Component } from './components/page404/page404.component';
 import { EditarComponent } from './components/articulos/editar/editar.component';
+
+
 
 @NgModule({
   declarations: [
@@ -40,6 +44,7 @@ import { EditarComponent } from './components/articulos/editar/editar.component'
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    NgSelectModule,
     FormsModule,
     ReactiveFormsModule
   ],

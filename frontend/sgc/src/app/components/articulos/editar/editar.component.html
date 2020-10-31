@@ -57,20 +57,19 @@
          <!-- controls -->
           <div class="mb-3">
             <label for="validationTextarea">Rubros (*)</label>
-            <select formControlName="rubro" class="form-control select" >
-              <option value=""> ------ </option>
-              <option *ngFor="let item of rubros" value="{{ item.id }}">{{ item.descripcion }}</option>
-            </select>
+            <ng-select formControlName="rubro" >
+              <ng-option value=""> ------ </ng-option>
+              <ng-option *ngFor="let item of rubros" [value]="item.id">{{ item.descripcion }}</ng-option>
+            </ng-select>
           </div>
         <!-- controls -->
 
         <!-- controls -->
           <div class="mb-3">
             <label for="validationTextarea">Marcas</label>
-            <select formControlName="marca" class="form-control select" >
-              <option value=""> ------ </option>
-              <option *ngFor="let item of marcas" value="{{ item.id }}">{{ item.descripcion }}</option>
-            </select>
+            <ng-select formControlName="marca">
+              <ng-option *ngFor="let item of marcas" [value]="item.id">{{item.descripcion}}</ng-option>
+            </ng-select>
           </div>
         <!-- controls -->
 
@@ -91,6 +90,15 @@
               <div *ngIf="!articuloForm.controls.precio_venta.valid && articuloForm.controls.precio_venta.dirty" class="invalid-feedback">
                 Este campo es obligtorio
               </div>
+          </div>
+        <!-- controls -->
+
+         <!-- controls -->
+          <div class="mb-3">
+            <label for="validationTextarea">Proveedores</label>
+            <ng-select formControlName="proveedor">
+              <ng-option *ngFor="let item of proveedores" [value]="item.id">{{item.razon_social}}</ng-option>
+            </ng-select>
           </div>
         <!-- controls -->
 

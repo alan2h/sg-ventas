@@ -9,6 +9,7 @@ import { ArticulosService } from '../../../services/articulos.service';
 // complementos
 import { MarcasService } from '../../../services/complementos/marcas/marcas.service';
 import { RubrosService } from '../../../services/complementos/rubros/rubros.service';
+import { ProveedoresService } from '../../../services/proveedores/proveedores.service';
 
 @Component({
   selector: 'app-editar',
@@ -20,6 +21,7 @@ export class EditarComponent implements OnInit, OnDestroy {
   subscription_articulo : Subscription;
   subscription_marca    : Subscription;
   subscription_rubro    : Subscription;
+  subscription_proveedor: Subscription;
 
   imageFile: {link: string, file: any, name: string};
 
@@ -30,6 +32,7 @@ export class EditarComponent implements OnInit, OnDestroy {
 
   public rubros:any;
   public marcas:any;
+  public proveedores:any;
 
   articuloForm = new FormGroup({
     codigo        : new FormControl('', [Validators.required]),
@@ -39,7 +42,8 @@ export class EditarComponent implements OnInit, OnDestroy {
     marca         : new FormControl(null),
     precio_compra : new FormControl('', [Validators.required]),
     precio_venta  : new FormControl('', [Validators.required]),
-    imagen        : new FormControl('')
+    imagen        : new FormControl(''),
+    proveedor     : new FormControl('')
   })
 
   constructor(
@@ -47,7 +51,8 @@ export class EditarComponent implements OnInit, OnDestroy {
     private router: Router,
     private actived_route: ActivatedRoute,
     private marcas_service: MarcasService,
-    private rubros_service: RubrosService
+    private rubros_service: RubrosService,
+    private proveedor_service: ProveedoresService,
     ) { }
 
   ngOnInit(): void {
@@ -63,10 +68,12 @@ export class EditarComponent implements OnInit, OnDestroy {
         if (this.articulo.rubro){ this.articuloForm.patchValue({'rubro': this.articulo.rubro.id})}
         this.articuloForm.patchValue({'precio_compra': this.articulo.precio_compra});
         this.articuloForm.patchValue({'precio_venta': this.articulo.precio_venta});
+        if (this.articulo.proveedor) {this.articuloForm.patchValue({'proveedor': this.articulo.proveedor.id})};
         this.image = this.articulo.imagen; // set image to template
       })
-      this.subscription_marca = this.marcas_service.getMarcas().subscribe(data =>  this.marcas = data )
-      this.subscription_rubro = this.rubros_service.getRubros().subscribe(data => this.rubros = data )
+      this.subscription_marca     = this.marcas_service.getMarcas().subscribe(data =>  this.marcas = data );
+      this.subscription_rubro     = this.rubros_service.getRubros().subscribe(data => this.rubros = data );
+      this.subscription_proveedor = this.proveedor_service.getProveedores().subscribe(data => this.proveedores = data );
   }
 
   getIdParam(){
@@ -103,6 +110,7 @@ export class EditarComponent implements OnInit, OnDestroy {
     }
     formData.append('precio_compra', this.articuloForm.controls.precio_compra.value);
     formData.append('precio_venta',  this.articuloForm.controls.precio_venta.value);
+    formData.append('proveedor',  this.articuloForm.controls.proveedor.value);
     if (this.imageFile){formData.append('imagen',  this.imageFile.file, this.imageFile.name);}
 
     this.articulo_service.updateCliente(this.id_articulo, formData)
@@ -121,9 +129,10 @@ export class EditarComponent implements OnInit, OnDestroy {
 
   ngOnDestroy():void{
     // me dejo de subscribir a los observables
-    this.subscription_articulo.unsubscribe(); 
+    this.subscription_articulo.unsubscribe();
     this.subscription_marca.unsubscribe();
     this.subscription_rubro.unsubscribe();
+    this.subscription_proveedor.unsubscribe();
   }
 
 }

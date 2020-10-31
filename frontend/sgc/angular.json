@@ -30,8 +30,7 @@
               "src/assets/plugins/simplebar/simplebar.min.css",
               "src/assets/css/style.min.css",
               "src/assets/css/sidebar-gray.min.css",
-              "node_modules/select2/dist/css/select2.min.css", 
-              "node_modules/select2/dist/js/select2.min.js"
+              "node_modules/@ng-select/ng-select/themes/default.theme.css"
             ],
             "scripts": [
               "src/assets/js/jquery.min.js",

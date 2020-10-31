@@ -15,7 +15,7 @@ router.register(r'api/rubro/', RubroViewSet)
 
 urlpatterns = [
     path('', include(router.urls))
-]   
+]
 
 urlpatterns += router.urls
 

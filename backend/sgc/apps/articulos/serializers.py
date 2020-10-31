@@ -2,6 +2,7 @@
 from rest_framework import serializers
 
 from .models import Articulo, Marca, Rubro
+from apps.proveedores.serializers import ProveedorSerializer
 
 
 class MarcaSerialzer(serializers.ModelSerializer):
@@ -28,6 +29,7 @@ class ArticuloListSerializer(serializers.ModelSerializer):
 
     marca = MarcaSerialzer()
     rubro = RubroSerializer()
+    proveedor = ProveedorSerializer()
 
     class Meta:
         model  = Articulo
@@ -36,7 +38,7 @@ class ArticuloListSerializer(serializers.ModelSerializer):
             'codigo', 'descripcion',
             'rubro', 'marca',
             'precio_venta', 'precio_compra',
-            'imagen'
+            'imagen', 'proveedor'
         ]
 
 
@@ -49,5 +51,5 @@ class ArticuloCreateSerializer(serializers.ModelSerializer):
             'codigo', 'descripcion',
             'rubro', 'marca',
             'precio_venta', 'precio_compra',
-            'imagen'
+            'imagen', 'proveedor'
         ]
