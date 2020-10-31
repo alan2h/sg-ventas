@@ -1,14 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ArticulosService } from '../../../services/articulos.service';
 
 import { Router, ActivatedRoute } from '@angular/router';
+
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-listado',
   templateUrl: './listado.component.html',
   styleUrls: ['./listado.component.css']
 })
-export class ListadoComponent implements OnInit {
+export class ListadoComponent implements OnInit, OnDestroy {
+
+  subscription_articulo: Subscription;
 
   public articulos;
   public siguiente:string;
@@ -33,9 +37,7 @@ export class ListadoComponent implements OnInit {
                private activated_router: ActivatedRoute ) { }
 
   ngOnInit(): void {
-    this.articulos_service.getClientes()
-      .subscribe(data => this.receivData(data))
-
+    this.subscription_articulo = this.articulos_service.getClientes().subscribe(data => this.receivData(data))
     this.activated_router.params.subscribe(params => {
       this.mensaje = params['mensaje'],
       this.status = params['status']
@@ -62,7 +64,6 @@ export class ListadoComponent implements OnInit {
   }
 
   buscar(){
-    console.log(this.nombre_order);
     this.articulos_service.searchCliente(this.txt_search.codigo, this.txt_search.nombre, 
       this.txt_search.descripcion, this.txt_search.precio_venta, 
       this.txt_search.precio_compra, this.txt_search.marca, this.txt_search.rubro, this.nombre_order)
@@ -90,6 +91,10 @@ export class ListadoComponent implements OnInit {
       this.articulos = data['results'];
       this.siguiente = data['next'];
       this.atras     = data['previous'];
+  }
+
+  ngOnDestroy(): void{
+    this.subscription_articulo.unsubscribe();
   }
 
 }

@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Validators, FormGroup, FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Subscribable, Subscription } from 'rxjs';
 
-import * as jquery from 'jquery';
 
 import { ArticulosService } from '../../../services/articulos.service';
 
@@ -15,7 +15,11 @@ import { RubrosService } from '../../../services/complementos/rubros/rubros.serv
   templateUrl: './editar.component.html',
   styleUrls: ['./editar.component.css']
 })
-export class EditarComponent implements OnInit {
+export class EditarComponent implements OnInit, OnDestroy {
+
+  subscription_articulo : Subscription;
+  subscription_marca    : Subscription;
+  subscription_rubro    : Subscription;
 
   imageFile: {link: string, file: any, name: string};
 
@@ -48,31 +52,21 @@ export class EditarComponent implements OnInit {
 
   ngOnInit(): void {
     this.getIdParam();
-    let id_marca = '';
-    let id_rubro = '';
-    this.articulo_service.getCliente(this.id_articulo)
+    this.subscription_articulo = this.articulo_service.getCliente(this.id_articulo)
       .subscribe(data => {
         this.articulo = data;
         this.articuloForm.patchValue({'codigo': this.articulo.codigo});
         this.articuloForm.patchValue({'nombre': this.articulo.nombre});
         this.articuloForm.patchValue({'descripcion': this.articulo.descripcion});
         this.articuloForm.patchValue({'imagen': this.articulo.imagen});
+        if (this.articulo.marca){ this.articuloForm.patchValue({'marca': this.articulo.marca.id})}
+        if (this.articulo.rubro){ this.articuloForm.patchValue({'rubro': this.articulo.rubro.id})}
         this.articuloForm.patchValue({'precio_compra': this.articulo.precio_compra});
         this.articuloForm.patchValue({'precio_venta': this.articulo.precio_venta});
-        this.image = this.articulo.imagen; // set image to template 
-        id_rubro = this.articulo.rubro.id;
-        //id_marca = this.articulo.marca.id;
-        
+        this.image = this.articulo.imagen; // set image to template
       })
-
-      this.marcas_service.getMarcas()
-        .subscribe(data =>  this.marcas = data )
-      this.rubros_service.getRubros()
-        .subscribe(data => this.rubros = data )
-      console.log(id_rubro, '===================')
-      if (id_rubro){jquery('#id_rubro').val(id_rubro).trigger('change');}// insert select2
-      jquery('.select').select2();
-      if (id_marca){ jquery('#id_marca').val(id_marca).trigger('change') } // set value select2
+      this.subscription_marca = this.marcas_service.getMarcas().subscribe(data =>  this.marcas = data )
+      this.subscription_rubro = this.rubros_service.getRubros().subscribe(data => this.rubros = data )
   }
 
   getIdParam(){
@@ -101,12 +95,16 @@ export class EditarComponent implements OnInit {
     formData.append('codigo', this.articuloForm.controls.codigo.value);
     formData.append('nombre', this.articuloForm.controls.nombre.value);
     formData.append('descripcion', this.articuloForm.controls.descripcion.value);
-    formData.append('rubro', jquery('#id_rubro').val());
+    formData.append('rubro', this.articuloForm.controls.rubro.value);
+    if (this.articuloForm.controls.marca.value){
+      formData.append('marca', this.articuloForm.controls.marca.value);
+    }else{
+      formData.append('marca', '');
+    }
     formData.append('precio_compra', this.articuloForm.controls.precio_compra.value);
     formData.append('precio_venta',  this.articuloForm.controls.precio_venta.value);
-    if (jquery('#id_marca').val()){formData.append('marca', jquery('#id_marca').val())};
     if (this.imageFile){formData.append('imagen',  this.imageFile.file, this.imageFile.name);}
-  
+
     this.articulo_service.updateCliente(this.id_articulo, formData)
       .subscribe(data => {
          if (data['status'] == 'success'){
@@ -119,6 +117,13 @@ export class EditarComponent implements OnInit {
 
   onCancel(){
     this.router.navigate(['/articulos/listado'])
+  }
+
+  ngOnDestroy():void{
+    // me dejo de subscribir a los observables
+    this.subscription_articulo.unsubscribe(); 
+    this.subscription_marca.unsubscribe();
+    this.subscription_rubro.unsubscribe();
   }
 
 }

@@ -1,7 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import * as jquery from 'jquery';
 
 
 // articulos services 
@@ -10,6 +9,7 @@ import { ArticulosService } from '../../../services/articulos.service';
 //complementos
 import { RubrosService } from '../../../services/complementos/rubros/rubros.service';
 import { MarcasService } from '../../../services/complementos/marcas/marcas.service';
+import { Subscription } from 'rxjs';
 
 
 @Component({
@@ -17,7 +17,7 @@ import { MarcasService } from '../../../services/complementos/marcas/marcas.serv
   templateUrl: './alta.component.html',
   styleUrls: ['./alta.component.css']
 })
-export class AltaComponent implements OnInit {
+export class AltaComponent implements OnInit, OnDestroy {
 
   /*
     nombre = models.CharField(max_length=300, null=False, blank=False)
@@ -34,6 +34,9 @@ export class AltaComponent implements OnInit {
     imagen = models.ImageField(upload_to='articulos', null=True, blank=True)
     activo = models.BooleanField(default=True)
   */
+
+  subscription_marcas   : Subscription;
+  subscription_rubros   : Subscription;
 
   imageFile: {link: string, file: any, name: string};
   rubros:any;
@@ -72,11 +75,8 @@ export class AltaComponent implements OnInit {
     ) { }
 
   ngOnInit(): void {
-    this.rubro_service.getRubros().subscribe(data => this.rubros = data) // set rubros 
-    this.marca_service.getMarcas().subscribe(data => this.marcas = data) // set marcas
-    //--- select 2 ----//
-    jquery('.select').select2(); //initialize select2 to particular input
-
+    this.subscription_rubros = this.rubro_service.getRubros().subscribe(data => this.rubros = data) // set rubros 
+    this.subscription_marcas = this.marca_service.getMarcas().subscribe(data => this.marcas = data) // set marcas
   }
 
   imagesPreview(event) {
@@ -95,18 +95,19 @@ export class AltaComponent implements OnInit {
   }
 
   onSubmit(){
-    
     const formData = new FormData();
-    
     formData.append('codigo', this.articuloForm.controls.codigo.value);
     formData.append('nombre', this.articuloForm.controls.nombre.value);
     formData.append('descripcion', this.articuloForm.controls.descripcion.value);
-    formData.append('rubro', jquery('#id_rubro').val());
+    formData.append('rubro', this.articuloForm.controls.rubro.value);
     formData.append('precio_compra', this.articuloForm.controls.precio_compra.value);
     formData.append('precio_venta',  this.articuloForm.controls.precio_venta.value);
-    if (jquery('#id_marca').val()){formData.append('marca', jquery('#id_marca').val())};
+    if (this.articuloForm.controls.marca.value){
+      formData.append('marca', this.articuloForm.controls.marca.value);
+    }else{
+      formData.append('marca', '');
+    }
     if (this.imageFile){formData.append('imagen',  this.imageFile.file, this.imageFile.name);}
-    
     this.articulo_service.addCliente(formData)
       .subscribe(data => {
         if (data['status'] == 'success'){
@@ -117,9 +118,12 @@ export class AltaComponent implements OnInit {
       })
   }
 
-  onCancel(){
+  onCancel():void{
     this.router.navigate(['articulos/listado'])
   }
 
-  
+  ngOnDestroy():void{
+    this.subscription_marcas.unsubscribe(); // desescribirme de este observable
+    this.subscription_rubros.unsubscribe(); // desescribirme de rubros
+  }
 }
