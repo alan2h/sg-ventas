@@ -51,3 +51,4 @@ __pycache__/
 *$py.class
 *.pyc
 *conection_db.py*
+*conf.py*
