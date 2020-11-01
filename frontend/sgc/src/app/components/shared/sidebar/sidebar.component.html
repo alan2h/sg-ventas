@@ -22,8 +22,15 @@
           <ul>
             <li><a  [routerLink]="['/articulos']" routerLinkActive="active" #articulos="routerLinkActive" >Árticulos</a></li>
           </ul>
+
+          <a class="nav-link has-icon dropdown-toggle" [ngClass]="{'active show': marcas.isActive}"  href="#"><i class="material-icons">done</i>Complementos</a> <!-- active show -->
+          <ul>
+            <li><a  [routerLink]="['/complementos/marcas']" routerLinkActive="active" #marcas="routerLinkActive" >Marcas</a></li>
+          </ul>
         </li>
        
+       
+
       </ul>
     </div>
     <!-- /Sidebar body -->

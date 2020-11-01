@@ -4,6 +4,7 @@ import { AuthGuardService } from './services/auth-guard.service';
 
 // ---- APPS -----
 import { ArticulosComponent } from './components/articulos/articulos.component';
+import { MarcasComponent } from './components/complementos/marcas/marcas.component';
 import { HomeComponent } from './components/home/home.component';
 import { routes_articulos } from './components/articulos/articulos.component.routes';
 import { LoginComponent } from './components/login/login.component';
@@ -15,6 +16,9 @@ const routes: Routes = [
   { path: 'articulos', component: ArticulosComponent,
     children: routes_articulos,
     canActivate: [AuthGuardService]
+  },
+  {
+    path: 'complementos/marcas', component: MarcasComponent
   },
   { path: 'login', component: LoginComponent },
   { path: 'home', component: HomeComponent,
