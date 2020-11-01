@@ -1,8 +1,10 @@
 from rest_framework import viewsets, permissions
 from rest_framework.response import Response
+from rest_framework.decorators import action
+
 from django.core.files.storage import default_storage
-from rest_framework.parsers import ( 
-                                    FileUploadParser, 
+from rest_framework.parsers import (
+                                    FileUploadParser,
                                     MultiPartParser
                                     )
 
@@ -116,6 +118,13 @@ class MarcaViewSet(viewsets.ModelViewSet):
     queryset = Marca.objects.filter(activo=True)
     serializer_class = MarcaSerialzer
     permission_classes = [permissions.IsAuthenticated]
+    pagination_class = StandarResultSetPagination
+
+    @action(detail=False)
+    def marca_select(self, request):
+        marcas = Marca.objects.filter(activo=True)
+        serializer = self.get_serializer(marcas, many=True)
+        return Response(serializer.data)
 
 
 class RubroViewSet(viewsets.ModelViewSet):
@@ -127,3 +136,4 @@ class RubroViewSet(viewsets.ModelViewSet):
     queryset = Rubro.objects.filter(activo=True)
     serializer_class = RubroSerializer
     permission_classes = [permissions.IsAuthenticated]
+
