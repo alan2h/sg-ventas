@@ -1,14 +1,15 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { Routes, RouterModule, Router } from '@angular/router';
 import { AuthGuardService } from './services/auth-guard.service';
 
 // ---- APPS -----
 import { ArticulosComponent } from './components/articulos/articulos.component';
 import { MarcasComponent } from './components/complementos/marcas/marcas.component';
 import { HomeComponent } from './components/home/home.component';
-import { routes_articulos } from './components/articulos/articulos.component.routes';
 import { LoginComponent } from './components/login/login.component';
 
+import { routes_articulos } from './components/articulos/articulos.component.routes';
+import { routes_marcas } from './components/complementos/marcas/marcas.component.routes';
 // ---- page error ----
 import { Page404Component } from './components/page404/page404.component';
 
@@ -18,7 +19,9 @@ const routes: Routes = [
     canActivate: [AuthGuardService]
   },
   {
-    path: 'complementos/marcas', component: MarcasComponent
+    path: 'complementos/marcas', component: MarcasComponent,
+    children: routes_marcas,
+    canActivate: [AuthGuardService]
   },
   { path: 'login', component: LoginComponent },
   { path: 'home', component: HomeComponent,

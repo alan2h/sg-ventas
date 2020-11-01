@@ -20,6 +20,7 @@ import { MessageComponent } from './components/shared/message/message.component'
 import { DeleteComponent } from './components/articulos/delete/delete.component';
 import { Page404Component } from './components/page404/page404.component';
 import { EditarComponent } from './components/articulos/editar/editar.component';
+import { ListadoMarcasComponent } from './components/complementos/marcas/listado-marcas/listado-marcas.component';
 
 
 
@@ -38,7 +39,8 @@ import { EditarComponent } from './components/articulos/editar/editar.component'
     MessageComponent,
     DeleteComponent,
     Page404Component,
-    EditarComponent
+    EditarComponent,
+    ListadoMarcasComponent
   ],
   imports: [
     BrowserModule,
