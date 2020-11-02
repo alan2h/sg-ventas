@@ -3,7 +3,7 @@
 
           <!-- Toolbar -->
           <div class="btn-group btn-group-sm mb-3" role="group">
-            <button type="button" class="btn btn-light has-icon"><i class="material-icons mr-1">add_circle_outline</i> Agregar</button>
+            <button type="button" (click)="abrirAlta()" class="btn btn-light has-icon"><i class="material-icons mr-1">add_circle_outline</i> Agregar</button>
             <button type="button" class="btn btn-light has-icon"><i class="material-icons mr-1">refresh</i> Refrescar</button>
             <button type="button" class="btn btn-light has-icon"><i class="material-icons mr-1">picture_as_pdf</i> Exportar</button>
           </div>
@@ -30,9 +30,9 @@
 
               <tbody>
 
-                <tr>
-                  <td>123</td>
-                  <td>DDD</td>
+                <tr *ngFor="let item of marcas">
+                  <td>{{ item.id }}</td>
+                  <td>{{ item.descripcion }}</td>
                   <td class="text-center">
                     <div class="btn-group btn-group-xs" role="group">
                       <a class="btn btn-link btn-icon bigger-130 text-success"><i class="material-icons">edit</i></a>

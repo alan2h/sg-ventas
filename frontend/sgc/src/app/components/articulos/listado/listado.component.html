@@ -3,7 +3,7 @@
           <!-- mensaje -->
           <app-message [mensaje]="mensaje" [status]="status" ></app-message>
           <!-- mensaje -->
-          
+
           <!-- Toolbar -->
           <div class="btn-group btn-group-sm mb-3" role="group">
             <button (click)="abrirAlta()" type="button" class="btn btn-light has-icon"><i class="material-icons mr-1">add_circle_outline</i> Agregar</button>
@@ -29,7 +29,7 @@
                   <th><button (click)="buscar()" class="btn btn-sm btn-outline-primary btn-block has-icon"><i class="material-icons">search</i></button></th>
                 </tr>
                 <tr>
-                  
+
                   <th scope="col" class="text-center">Código</th>
                   <th scope="col"><a (click)="order('Nombre')" class="sorting {{ nombre_order }}">Nombre</a></th>
                   <th scope="col"><a class="">Descripción</a></th>
@@ -44,7 +44,6 @@
               <tbody>
 
                 <tr *ngFor="let item of articulos">
-                  
                   <td>{{ item.codigo }}</td>
                   <td>{{ item.nombre }}</td>
                   <td>{{ item.descripcion }}</td>

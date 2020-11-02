@@ -1,4 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+
+import { Router } from '@angular/router';
+
+import { MarcasService } from '../../../../services/complementos/marcas/marcas.service';
+
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-listado-marcas',
@@ -7,9 +13,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ListadoMarcasComponent implements OnInit {
 
-  constructor() { }
+  marcas:any;
+  subscription_marcas: Subscription;
+
+  constructor(
+    private marca_service: MarcasService,
+    private router: Router
+    ) { }
 
   ngOnInit(): void {
+    this.marca_service.getMarcasListado().subscribe(data => {
+     this.marcas = data['results'];
+     console.log(this.marcas)
+    })
+  }
+
+  abrirAlta(){
+    this.router.navigate(['/complementos/marcas/alta'])
   }
 
 }

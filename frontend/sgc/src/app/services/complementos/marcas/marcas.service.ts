@@ -14,4 +14,8 @@ export class MarcasService {
     return this.http.get(`${environment.url}articulos/api/marca//marca_select`, {headers:  {"Authorization": `Token ${localStorage.getItem('token')}`}})
   }
 
+  getMarcasListado(){
+    return this.http.get(`${environment.url}articulos/api/marca/`, {headers: {"Authorization": `Token ${localStorage.getItem('token')}`}})
+  }
+
 }
