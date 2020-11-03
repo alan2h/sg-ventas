@@ -1,6 +1,10 @@
 <div class="card">
         <div class="card-body">
 
+          <!-- mensaje -->
+          <app-message [mensaje]="mensaje" [status]="status" ></app-message>
+          <!-- mensaje -->
+
           <!-- Toolbar -->
           <div class="btn-group btn-group-sm mb-3" role="group">
             <button type="button" (click)="abrirAlta()" class="btn btn-light has-icon"><i class="material-icons mr-1">add_circle_outline</i> Agregar</button>

@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 
 import { environment } from '../../../../environments/environment';
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -16,6 +17,10 @@ export class MarcasService {
 
   getMarcasListado(){
     return this.http.get(`${environment.url}articulos/api/marca/`, {headers: {"Authorization": `Token ${localStorage.getItem('token')}`}})
+  }
+
+  addMarca(marca:any){
+    return this.http.post(`${environment.url}articulos/api/marca/`, marca, {headers: {"Authorization": `Token ${localStorage.getItem('token')}`}})
   }
 
 }
