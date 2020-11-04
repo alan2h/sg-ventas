@@ -27,7 +27,7 @@
                 <tr>
 
                   <th scope="col" class="text-center">Código</th>
-                  <th scope="col"><a class="sorting asc">Nombre</a></th>
+                  <th scope="col"><a  [class]="order">Nombre</a></th>
                   <th scope="col" class="text-center">Acciones</th>
                 </tr>
               </thead>
@@ -78,15 +78,17 @@
 
             <!-- Pagination -->
             <ul class="pagination pagination-sm pagination-circle mb-0 ml-sm-auto mt-1 mt-sm-0">
-              <li  class="page-item"><!--disabled-->
-                <span class="page-link"><i class="material-icons mr-1">skip_previous</i></span>
+              <li [class.disabled]="!pagina_atras" class="page-item"><!--disabled-->
+                <a (click)="redirectPage(pagina_atras)" class="page-link"><i class="material-icons mr-1">skip_previous</i></a>
               </li>
               <!-- <li class="page-item active"><span class="page-link">1</span></li>
               <li class="page-item"><a class="page-link" href="javascript:void(0)">2</a></li>
               <li class="page-item"><a class="page-link" href="javascript:void(0)">3</a></li>
               <li class="page-item readonly"><span class="page-link">...</span></li>
               <li class="page-item"><a class="page-link" href="javascript:void(0)">10</a></li>-->
-              <li class="page-item" ><a class="page-link" href="javascript:void(0)"><i class="material-icons mr-1">skip_next</i></a></li>
+              <li [class.disabled]="!pagina_siguiente" class="page-item" >
+                <a class="page-link" (click)="redirectPage(pagina_siguiente)"><i class="material-icons mr-1">skip_next</i></a>
+              </li>
             </ul>
 
           </div><!-- /.d-flex -->

@@ -23,4 +23,8 @@ export class MarcasService {
     return this.http.post(`${environment.url}articulos/api/marca/`, marca, {headers: {"Authorization": `Token ${localStorage.getItem('token')}`}})
   }
 
+  getMarcasUrl(url:string){
+    return this.http.get(`${url}`, {headers:  {"Authorization": `Token ${localStorage.getItem('token')}`}})
+  }
+
 }
