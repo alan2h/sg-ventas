@@ -25,6 +25,7 @@ urlpatterns = [
     # SECURITY
     path('admin/', admin.site.urls),
     path('api-token-auth/', views.obtain_auth_token),
+    path('auth/', include('apps.seguridad.urls')),
      # YOUR PATTERNS
     path('api/schema/', SpectacularAPIView.as_view(), name='schema'),
      # Optional UI:
