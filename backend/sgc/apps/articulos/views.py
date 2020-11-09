@@ -1,4 +1,4 @@
-from rest_framework import viewsets, permissions
+from rest_framework import viewsets, permissions, status
 from rest_framework.response import Response
 from rest_framework.decorators import action
 
@@ -82,7 +82,8 @@ class ArticuloViewSet(viewsets.ModelViewSet):
         serializer = ArticuloCreateSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         serializer.save()
-        return Response({'status': 'success', 'pk': serializer.instance.pk})
+        return Response({'status': 'success', 'pk': serializer.instance.pk}, 
+                        status=status.HTTP_201_CREATED)
 
     def update(self, request, pk=None):
         """
