@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -8,6 +9,7 @@ import { HomeComponent } from './components/home/home.component';
 import { MainComponent } from './components/shared/main/main.component';
 import { MessageComponent } from './components/shared/message/message.component';
 import { SidebarComponent } from './components/shared/sidebar/sidebar.component';
+import { Page404Component } from './components/page404/page404.component';
 
 @NgModule({
   declarations: [
@@ -16,11 +18,13 @@ import { SidebarComponent } from './components/shared/sidebar/sidebar.component'
     HomeComponent,
     MainComponent,
     MessageComponent,
-    SidebarComponent
+    SidebarComponent,
+    Page404Component
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

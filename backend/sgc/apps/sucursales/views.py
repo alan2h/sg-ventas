@@ -10,5 +10,5 @@ class SucursalViewSet(ListAPIView):
 
     queryset = Sucursal.objects.filter(activo=True)
     serializer_class = SucursalSerializer
-    permission_classes = [IsAuthenticated]
+    #permission_classes = [IsAuthenticated]
 

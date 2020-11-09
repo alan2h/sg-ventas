@@ -20,9 +20,8 @@
 
                                         <div class="form-group">
                                             <label class="font-size-sm" for="InputEmail">Sucursales</label>
-                                            <select class="form-control">
-                                                <option>Efector 1</option>
-                                                <option>Efector 2</option>
+                                            <select class="form-control"  >
+                                                <option *ngFor="let item of sucursales" value="item.id" >{{ item.nombre }}</option>
                                             </select>
                                         </div>
 
