@@ -10,12 +10,12 @@
                                     <form >
                                         <div class="form-group">
                                             <label class="font-size-sm" for="InputEmail">Usuario</label>
-                                            <input ngModel name="username" required type="text" class="form-control " placeholder="Ingrese su usuario">
+                                            <input [(ngModel)]="username" name="username" required type="text" class="form-control " placeholder="Ingrese su usuario">
                                         </div>
 
                                         <div class="form-group">
                                             <label class="font-size-sm" for="InputPassword">Contraseña</label>
-                                            <input ngModel name="password" required type="password" class="form-control" id="InputPassword" placeholder="ingrese su contraseña ">
+                                            <input [(ngModel)]="password" name="password" required type="password" class="form-control" id="InputPassword" placeholder="ingrese su contraseña ">
                                         </div>
 
                                         <div class="form-group">
@@ -25,7 +25,7 @@
                                             </select>
                                         </div>
 
-                                        <button type="submit" class="btn btn-primary btn-block">Aceptar</button>
+                                        <button type="button" (click)="onSubmit()" class="btn btn-primary btn-block">Aceptar</button>
                                     </form>
                             </div>
                     </div>

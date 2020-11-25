@@ -8,9 +8,12 @@ import { HomeComponent } from './components/home/home.component';
 // ---- page error --------------
 import { Page404Component } from './components/page404/page404.component';
 
+//----- guard router ----------
+import { AuthGuardService } from './services/auth/auth-guard.service';
+
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
-  { path: 'home' , component: HomeComponent  },
+  { path: 'home' , component: HomeComponent, canActivate: [AuthGuardService]  },
   { path:"", pathMatch:"full", redirectTo:"login" },
   { path: '**', component: Page404Component },
 ];
