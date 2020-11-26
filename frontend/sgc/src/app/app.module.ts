@@ -11,6 +11,7 @@ import { MainComponent } from './components/shared/main/main.component';
 import { MessageComponent } from './components/shared/message/message.component';
 import { SidebarComponent } from './components/shared/sidebar/sidebar.component';
 import { Page404Component } from './components/page404/page404.component';
+import { ArticlesComponent } from './components/articles/articles.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { Page404Component } from './components/page404/page404.component';
     MainComponent,
     MessageComponent,
     SidebarComponent,
-    Page404Component
+    Page404Component,
+    ArticlesComponent
   ],
   imports: [
     BrowserModule,

@@ -17,6 +17,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   public subscription_sucursales: Subscription;
   public username = "";
   public password = "";
+  public error_message = "";
 
   constructor(
     private sucursales_service: SucursalesService,
@@ -42,6 +43,9 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.login_service.setLogin(formData).subscribe(data => {
       localStorage.setItem('token', data['token']);
       this.router.navigate(['/home'])
+    },
+    error => {
+      this.error_message = error['error']['non_field_errors'][0];
     })
   }
 
