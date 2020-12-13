@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
@@ -12,6 +13,12 @@ import { MessageComponent } from './components/shared/message/message.component'
 import { SidebarComponent } from './components/shared/sidebar/sidebar.component';
 import { Page404Component } from './components/page404/page404.component';
 import { ArticlesComponent } from './components/articles/articles.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+//NGRX
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+
+import { MaterialModule } from './material/material.module'; // materialAngular
 
 @NgModule({
   declarations: [
@@ -28,7 +35,9 @@ import { ArticlesComponent } from './components/articles/articles.component';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    BrowserAnimationsModule,
+    MaterialModule
   ],
   providers: [],
   bootstrap: [AppComponent]

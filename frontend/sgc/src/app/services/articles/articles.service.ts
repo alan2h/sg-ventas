@@ -4,6 +4,9 @@ import { HttpClient } from '@angular/common/http';
 
 import { environment } from '../../../environments/environment';
 
+import { articleList } from '../../models/articles.models';
+import { Observable } from 'rxjs';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -14,8 +17,8 @@ export class ArticlesService {
   ) { }
   
 
-  getArticles() {
-    return this.http.get(`${ environment.url }articulos/api/`, {headers:{'Authorization' :`Token ${localStorage.getItem('token')}`}})
+  getArticles():Observable<articleList> {
+    return this.http.get<articleList>(`${ environment.url }articulos/api/`, {headers:{'Authorization' :`Token ${localStorage.getItem('token')}`}})
   }
 
 }

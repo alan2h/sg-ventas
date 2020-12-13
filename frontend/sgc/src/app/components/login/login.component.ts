@@ -5,6 +5,8 @@ import { Subscription } from 'rxjs'
 
 import { Router } from '@angular/router';
 
+import {MatSnackBar} from '@angular/material/snack-bar';
+
 
 @Component({
   selector: 'app-login',
@@ -22,7 +24,8 @@ export class LoginComponent implements OnInit, OnDestroy {
   constructor(
     private sucursales_service: SucursalesService,
     private login_service : LoginService,
-    private router: Router
+    private router: Router,
+    private _snackBar: MatSnackBar
     ) { }
 
   ngOnInit(): void {
@@ -42,6 +45,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     formData.append('password', this.password);
     this.login_service.setLogin(formData).subscribe(data => {
       localStorage.setItem('token', data['token']);
+      this._snackBar.open('Bienvenido al sistema de administración', 'Cerrar'); 
       this.router.navigate(['/home'])
     },
     error => {

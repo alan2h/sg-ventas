@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
 import { ArticlesService } from '../../services/articles/articles.service';
+import { articleList } from '../../models/articles.models';
+
 
 @Component({
   selector: 'app-articles',
@@ -9,13 +11,16 @@ import { ArticlesService } from '../../services/articles/articles.service';
 })
 export class ArticlesComponent implements OnInit {
 
+  articles:Array<any> = []
+
   constructor(
     private articles_service: ArticlesService
   ) { }
+  
 
   ngOnInit(): void {
     this.articles_service.getArticles().subscribe(data => {
-      console.log(data);
+      this.articles = data.results;
     })
   }
 
