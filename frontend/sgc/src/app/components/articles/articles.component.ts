@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
 
 import { ArticlesService } from '../../services/articles/articles.service';
 import { articleList } from '../../models/articles.models';
+import { set_articles } from '../../store/articles/articles.actions';
 
 
 @Component({
@@ -11,17 +13,22 @@ import { articleList } from '../../models/articles.models';
 })
 export class ArticlesComponent implements OnInit {
 
-  articles:Array<any> = []
+  articles:articleList[] = []
 
   constructor(
-    private articles_service: ArticlesService
-  ) { }
+    private articles_service: ArticlesService,
+    private store: Store
+  ) {
+     this.store.subscribe(state => {
+       this.articles = state['articles']['results']; // seteo state
+     })
+   }
   
 
   ngOnInit(): void {
     this.articles_service.getArticles().subscribe(data => {
-      this.articles = data.results;
-    })
+       this.store.dispatch(set_articles({articles: data}))
+    })  
   }
 
 }
