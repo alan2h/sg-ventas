@@ -1,0 +1,83 @@
+<h5>Agregar Artículos</h5>
+
+
+<div class="card">
+  <div class="card-body">
+    <!-- Toolbar -->
+        <div class="btn-group btn-group-sm mb-3" role="group">
+        <a type="button" [routerLink]="['/articles/add']"  class="btn btn-light has-icon"><i class="material-icons mr-1">add_circle_outline</i> Guardar</a>
+        <button type="button" class="btn btn-light has-icon"><i class="material-icons mr-1">refresh</i> Cancelar</button>
+        </div>
+
+
+        <section id="section2" class="mt-5">
+           
+            <div class="card">
+              <div class="card-body">
+                <form>
+                  <fieldset class="form-fieldset">
+                    <legend>Cargar un nuevo artículo</legend>
+                    <div class="form-group">
+                      <label for="fieldsetExampleInput">Nombre</label>
+                      <input type="text" class="form-control" id="fieldsetExampleInput" placeholder="Nombre">
+                    </div>
+                    <div class="form-group">
+                      <label for="fieldsetExampleInput2">Código</label>
+                      <input type="email" class="form-control" id="fieldsetExampleInput2" placeholder="Código">
+                    </div>
+                    <div class="form-group">
+                      <label for="fieldsetExampleInput3">Descripción</label>
+                      <textarea type="tel" class="form-control" id="fieldsetExampleInput3" placeholder="Descripción"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="fieldsetExampleInput2">Precio de venta</label>
+                        <input type="email" class="form-control" id="fieldsetExampleInput2" placeholder="Precio de venta">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="fieldsetExampleInput2">Precio de compra</label>
+                        <input type="email" class="form-control" id="fieldsetExampleInput2" placeholder="Precio de compra">
+                    </div>
+                    
+                  </fieldset>
+                  <fieldset class="form-fieldset">
+                    <legend>Datos Complementarios</legend>
+                    <div class="form-row">
+                        <div class="form-group col-sm-6">
+                            <label for="fieldsetExampleInput5">Proveedor</label>
+                            <select class="custom-select" id="fieldsetExampleInput5">
+                              <option selected>Monthly</option>
+                              <option value="1">Daily</option>
+                              <option value="2">..</option>
+                              <option value="3">..</option>
+                            </select>
+                          </div>
+                      <div class="form-group col-sm-6">
+                        <label for="fieldsetExampleInput5">Rubro</label>
+                        <select class="custom-select" id="fieldsetExampleInput5">
+                          <option selected>Monthly</option>
+                          <option value="1">Daily</option>
+                          <option value="2">..</option>
+                          <option value="3">..</option>
+                        </select>
+                      </div>
+
+                      <div class="form-group col-sm-6">
+                        <label for="fieldsetExampleInput5">Marca</label>
+                        <select class="custom-select" id="fieldsetExampleInput5">
+                          <option selected> ---- </option>
+                          <option *ngFor="let item of brands" [value]="item.id"> {{ item.descripcion }} </option>
+                        </select>
+                      </div>
+
+                    </div>
+                  </fieldset>
+                </form>
+              </div>
+            </div>
+          </section>
+
+    </div>
+    
+</div>

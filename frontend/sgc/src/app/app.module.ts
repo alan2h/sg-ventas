@@ -23,6 +23,7 @@ import { storeModules } from './store/store';
 import { MaterialModule } from './material/material.module'; // materialAngular
 import { environment } from '../environments/environment';
 import { ListComponent } from './components/articles/list/list.component';
+import { AddComponent } from './components/articles/add/add.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { ListComponent } from './components/articles/list/list.component';
     SidebarComponent,
     Page404Component,
     ArticlesComponent,
-    ListComponent
+    ListComponent,
+    AddComponent
   ],
   imports: [
     BrowserModule,
