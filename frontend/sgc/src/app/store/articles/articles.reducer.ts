@@ -6,7 +6,7 @@ export const initialState = {};
  
 const _articleReducer = createReducer(
   initialState,
-  on(set_articles, (state, {articles}) => state = articles )
+  on(set_articles, (state, {articles}) => articles )
 );
  
 export function articleReducer(state, action) {

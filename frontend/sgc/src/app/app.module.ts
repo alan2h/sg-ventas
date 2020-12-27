@@ -18,10 +18,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 //NGRX
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { articleReducer } from './store/articles/articles.reducer';
+import { storeModules } from './store/store';
 
 import { MaterialModule } from './material/material.module'; // materialAngular
 import { environment } from '../environments/environment';
+import { ListComponent } from './components/articles/list/list.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { environment } from '../environments/environment';
     MessageComponent,
     SidebarComponent,
     Page404Component,
-    ArticlesComponent
+    ArticlesComponent,
+    ListComponent
   ],
   imports: [
     BrowserModule,
@@ -41,7 +43,7 @@ import { environment } from '../environments/environment';
     FormsModule,
     BrowserAnimationsModule,
     MaterialModule,
-    StoreModule.forRoot({ articles: articleReducer }),
+    StoreModule.forRoot(storeModules),
     StoreDevtoolsModule.instrument({
       maxAge: 25, // Retains last 25 states
       logOnly: environment.production, // Restrict extension to log-only mode

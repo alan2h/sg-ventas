@@ -5,6 +5,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { LoginComponent } from './components/login/login.component';
 import { HomeComponent } from './components/home/home.component';
 import { ArticlesComponent } from './components/articles/articles.component';
+import { ListComponent } from './components/articles/list/list.component';
 
 // ---- page error --------------
 import { Page404Component } from './components/page404/page404.component';
@@ -15,7 +16,14 @@ import { AuthGuardService } from './services/auth/auth-guard.service';
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'home' , component: HomeComponent, canActivate: [AuthGuardService]  },
-  { path: 'articles', component:ArticlesComponent, canActivate: [AuthGuardService] },
+  { path: 'articles', component:ArticlesComponent, canActivate: [AuthGuardService], 
+    children: [
+          {
+            path: 'list', // child route path
+            component: ListComponent, // child route component that the router renders
+          }
+      ],
+  },
   { path:"", pathMatch:"full", redirectTo:"login" },
   { path: '**', component: Page404Component },
 ];

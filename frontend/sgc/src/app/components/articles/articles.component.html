@@ -8,97 +8,9 @@
     <!-- Main body -->
     <div class="main-body">
       
+      <router-outlet></router-outlet>
 
-      <h5>Listado de Artículos</h5>
-
-      <div class="card">
-        <div class="card-body">
-          <!-- Toolbar -->
-          <div class="btn-group btn-group-sm mb-3" role="group">
-            <button type="button" class="btn btn-light has-icon"><i class="material-icons mr-1">add_circle_outline</i> Agregar</button>
-            <button type="button" class="btn btn-light has-icon"><i class="material-icons mr-1">refresh</i> Refrescar</button>
-            <button type="button" class="btn btn-light has-icon"><i class="mr-1" data-feather="paperclip"></i> Exportar</button>
-          </div>
-
-          <div class="table-responsive">
-            <table class="table table-bordered table-sm has-checkAll mb-0" data-bulk-target="#bulk-dropdown" data-checked-class="table-warning">
-              <caption class="p-0 text-right"><small>Showing 1 to 5 of 57 entries</small></caption>
-
-              <!-- Filter columns -->
-              <thead class="thead-primary">
-                <tr class="column-filter">
-                  <th><input type="text" class="form-control form-control-sm border-primary" placeholder="Buscar por código"></th>
-                  <th><input type="text" class="form-control form-control-sm border-primary" placeholder="Buscar por Nombre"></th>
-                  <th><input type="text" class="form-control form-control-sm border-primary" placeholder="Buscar por Descripción"></th>
-                  <th><input type="text" class="form-control form-control-sm border-primary" placeholder="Buscar por precio de venta"></th>
-                  <th><input type="text" class="form-control form-control-sm border-primary" placeholder="Buscar por precio de compra"></th>
-                  <th><input type="text" class="form-control form-control-sm border-primary" placeholder="Buscar por precio de compra"></th>
-                  <th><input type="text" class="form-control form-control-sm border-primary" placeholder="Buscar por precio de compra"></th>
-                  <th><button class="btn btn-sm btn-outline-primary btn-block has-icon"><i class="material-icons">search</i></button></th>
-                </tr>
-                <tr>
-                  
-                  <th scope="col"><a href="javascript:void(0)" class="sorting asc">Código</a></th>
-                  <th scope="col"><a href="javascript:void(0)" class="sorting">Nombre</a></th>
-                  <th scope="col"><a href="javascript:void(0)" class="sorting">Descripción</a></th>
-                  <th scope="col"><a href="javascript:void(0)" class="sorting">Precio venta</a></th>
-                  <th scope="col"><a href="javascript:void(0)" class="sorting">Precio compra</a></th>
-                  <th scope="col"><a href="javascript:void(0)" class="sorting">Precio compra</a></th>
-                  <th scope="col"><a href="javascript:void(0)" class="sorting">Precio compra</a></th>
-                  <th scope="col" class="text-center">Actions</th>
-                </tr>
-              </thead>
-
-              <tbody>
-
-
-                <tr *ngFor="let item of articles">
-                    <td>{{ item.id }}</td>
-                    <td>{{ item.nombre }}</td>
-                    <td>{{ item.descripcion }}</td>
-                    <td>Accountant</td>
-                    <td>Tokyo</td>
-                    <td>Tokyo</td>
-                    <td>Tokyo</td>
-                    <td class="text-center">
-                      <div class="btn-group btn-group-xs" role="group">
-                        <a href="javascript:void(0)" class="btn btn-link btn-icon bigger-130 text-success"><i data-feather="edit">s</i></a>
-                        <a href="javascript:void(0)" class="btn btn-link btn-icon bigger-130 text-danger"><i data-feather="trash">ss</i></a>
-                      </div>
-                    </td>
-                </tr>
-               
-          
-              </tbody>
-            </table><!-- /.table -->
-
-          </div><!-- /.table-responsive -->
-
-          <div class="d-flex align-items-center flex-column flex-sm-row">
-
-            <!-- Bulk action dropdown -->
-            <div class="dropdown dropup bulk-dropdown align-self-start mr-2 mt-1 mt-sm-0" id="bulk-dropdown" hidden>
-              <button class="btn btn-light btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span class="checked-counter"></span>
-              </button>
-              <div class="dropdown-menu">
-                <button class="dropdown-item has-icon" type="button"><i class="mr-2" data-feather="copy"></i> Copy</button>
-                <button class="dropdown-item has-icon" type="button"><i class="mr-2" data-feather="archive"></i> Archive</button>
-                <div class="dropdown-divider"></div>
-                <button class="dropdown-item has-icon text-danger" type="button"><i class="mr-2" data-feather="trash"></i> Remove</button>
-              </div>
-            </div>
-
-            <!-- Show entries -->
-            <mat-paginator [length]="100" 
-              [pageSize]="10"
-              [pageSizeOptions]="[5, 10, 25, 100]">
-            </mat-paginator>
-
-          </div><!-- /.d-flex -->
-        </div>
-      </div>
-
+     
 
     </div>
     <!-- /Main body -->

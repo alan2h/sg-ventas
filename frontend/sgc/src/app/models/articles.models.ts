@@ -15,7 +15,7 @@ export interface Proveedor {
     contacto?: any;
 }
 
-export interface Result {
+export interface Article {
     id: number;
     nombre: string;
     codigo: string;
@@ -32,5 +32,5 @@ export interface articleList {
     count: number;
     next?: any;
     previous?: any;
-    results: Result[];
+    results: Article[];
 }

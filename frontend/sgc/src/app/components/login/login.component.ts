@@ -45,7 +45,9 @@ export class LoginComponent implements OnInit, OnDestroy {
     formData.append('password', this.password);
     this.login_service.setLogin(formData).subscribe(data => {
       localStorage.setItem('token', data['token']);
-      this._snackBar.open('Bienvenido al sistema de administración', 'Cerrar'); 
+      this._snackBar.open('Bienvenido al sistema de administración', 'Cerrar', {
+        duration: 3000
+      }); 
       this.router.navigate(['/home'])
     },
     error => {
